@@ -1,0 +1,17 @@
+{
+  "name": "SilentDisco",
+  "displayName": "SilentDisco",
+  "expo": {
+    "name": "SilentDisco",
+    "slug": "SilentDisco",
+    "version": "1.0.0",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
