@@ -5,7 +5,7 @@ import { createStackNavigator} from '@react-navigation/stack'
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 
 import {AuthContext} from './context'
-import {SignIn,CreateAccount, Profile, Home, Details, Splash} from './Screens';
+import {SignIn,CreateAccount, Profile, Home, Details, Splash, NewParty} from './Screens';
 
 const AuthStack = createStackNavigator();
 const Tabs = createBottomTabNavigator();
@@ -23,6 +23,11 @@ const HomeStackScreen = () => (
 const ProfileStackScreen = () => (
   <ProfileStack.Navigator> 
     <ProfileStack.Screen name= 'Profile' component ={Profile}/>
+  </ProfileStack.Navigator>
+)
+const NewPartyStackScreen = () => (
+  <ProfileStack.Navigator> 
+    <ProfileStack.Screen name= 'NewParty' component ={NewParty}/>
   </ProfileStack.Navigator>
 )
 
@@ -71,6 +76,7 @@ return {
         {userToken ? (
             <Tabs.Navigator initialRouteName = "Home">
             <Tabs.Screen name = "Home" component = {HomeStackScreen} />
+            <Tabs.Screen name = "NewParty" component = {NewPartyStackScreen} />
             <Tabs.Screen name = "Profile" component = {ProfileStackScreen} />
           </Tabs.Navigator>
         ): 

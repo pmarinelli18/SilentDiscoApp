@@ -62,6 +62,12 @@ export const Details = ({route}) => (
     </ScreenContainer>
 )
 
+export const NewParty = () => (
+    <ScreenContainer>
+        <Text>NewParty</Text>
+    </ScreenContainer>
+)
+
 export const SignIn = ({ navigation }) => {
     const {signIn} = React.useContext(AuthContext);
 
