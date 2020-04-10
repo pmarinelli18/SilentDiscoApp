@@ -1,22 +1,9 @@
 import React from 'react';
-import {View, Text, StyleSheet, Button} from 'react-native';
+import {Image, View, Text, StyleSheet, Button,TouchableOpacity} from 'react-native';
 
 import { AuthContext } from './context';
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1, 
-        backgroundColor: '#ffffff',
-        justifyContent: 'center',
-        alignContent: 'center'
-    },
-    button: {
-        paddingHorizontal: 20,
-        paddingVertical: 10,
-        marginVertical: 10,
-        borderRadius: 5
-    }
-});
+
 
 const ScreenContainer = ({ children }) =>(
 <View style ={styles.container}>{children}</View>
@@ -72,11 +59,35 @@ export const SignIn = ({ navigation }) => {
     const {signIn} = React.useContext(AuthContext);
 
     return (
-        <ScreenContainer>
-            <Text> Sign In Screen</Text>
-            <Button title ="Sign In" onPress ={()=> signIn()}/>
-            <Button title ="CreateAccount" onPress ={()=> navigation.push('CreateAccount')}/>
-        </ScreenContainer>
+        <ScreenContainer style = {styles.container}>
+            <View style={styles.welcomeContainer}> 
+                <Text style = {styles.welcomeText}>Silent Disco</Text>
+                <Image
+                source={
+                    __DEV__
+                    ? require('./assets/SilentDiscoLogo.png')
+                    : require('./assets/SilentDiscoLogo.png')
+                }
+                style={styles.welcomeImage}
+                />
+            </View>
+    
+            <View style={styles.getStartedContainer}>
+            <TouchableOpacity
+                style={styles.button}
+                onPress={()=> signIn()}
+            >
+            <Text style = {styles.buttonText}>Login</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+                style={styles.button}
+                onPress={()=> navigation.push('CreateAccount')}
+            >
+                <Text style = {styles.buttonText}>Create New Account</Text>
+            </TouchableOpacity>
+            </View>
+
+          </ScreenContainer>
     )
 }
 
@@ -91,3 +102,68 @@ export const CreateAccount = () => {
         </ScreenContainer> 
     )
 }
+
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1, 
+        backgroundColor: '#212121',
+        justifyContent: 'center',
+        alignContent: 'center'
+    },
+    button: {
+ 
+        marginTop:30,
+        paddingTop:12,
+        paddingBottom:12,
+        paddingLeft:40,
+        paddingRight: 40,
+        alignItems: "center",
+        backgroundColor:'#008272',
+        borderRadius:50,
+        borderWidth: 1,
+        borderColor: '#000000'
+      },
+    buttonText:{
+        fontSize:18,
+        
+      },
+      loginContainer:{
+        alignItems:'center',
+        marginTop: 10,
+        marginBottom: 20
+      },
+      OvalShapeView: {
+        marginTop: 20,
+        width: 100,
+        height: 100,
+        backgroundColor: '#00BCD4',
+        borderRadius: 50,
+        transform: [
+          {scaleX: 2}
+        ]
+      },
+      welcomeText:{
+        color: '#ff8b3d',
+        fontSize: 40,
+        fontFamily: 'normal',
+        fontWeight: '100',
+        marginBottom: 50
+      },
+      welcomeContainer: {
+          alignItems: 'center',
+          marginBottom: 20,
+        },
+      welcomeImage: {
+        width: 200,
+        height: 160,
+        alignItems: "center",
+        resizeMode: 'contain',
+        marginTop: 10,
+        
+      },
+      getStartedContainer: {
+        alignItems: 'center',
+        marginHorizontal: 50,
+      },
+});

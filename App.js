@@ -5,8 +5,9 @@ import { createStackNavigator} from '@react-navigation/stack'
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 
 import {AuthContext} from './context'
-import {SignIn,CreateAccount, Profile, Home, Details, Splash, NewParty} from './Screens';
+import {SignIn, CreateAccount, Profile, Home, Details, Splash, NewParty} from './Screens';
 
+import TabBarIcon from './components/TabBarIcon';
 const AuthStack = createStackNavigator();
 const Tabs = createBottomTabNavigator();
 const HomeStack = createStackNavigator();
@@ -75,14 +76,35 @@ return {
       <NavigationContainer>
         {userToken ? (
             <Tabs.Navigator initialRouteName = "Home">
-            <Tabs.Screen name = "Home" component = {HomeStackScreen} />
-            <Tabs.Screen name = "NewParty" component = {NewPartyStackScreen} />
-            <Tabs.Screen name = "Profile" component = {ProfileStackScreen} />
+            <Tabs.Screen 
+              name = "Home" 
+              component = {HomeStackScreen}
+              options={{
+                tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-home" />,
+              }}
+            />
+            <Tabs.Screen 
+              name = "NewParty" 
+              component = {NewPartyStackScreen}
+              options={{
+                tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-add-circle" />,
+              }}
+            />
+            <Tabs.Screen 
+              name = "Profile"
+              component = {ProfileStackScreen}
+              options={{
+                tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-person" />,
+              }} 
+             />
           </Tabs.Navigator>
         ): 
         (
         <AuthStack.Navigator>
-          <AuthStack.Screen name = "SignIn" component ={SignIn} options = {{title: 'Sign In'}}/>
+          <AuthStack.Screen 
+          name = "SignIn" 
+          component ={SignIn} 
+          options={{headerShown: false}}/>
           <AuthStack.Screen name = "CreateAccount" component ={CreateAccount} options = {{title: 'Create Account'}}/>
         </AuthStack.Navigator>
         )
