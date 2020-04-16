@@ -74,6 +74,12 @@ export const NewParty = () => (
     </ScreenContainer>
 )
 
+const getLogin = async () => {
+    const response = await fetch(`/login`, {
+    });
+    const body = await response;
+}
+
 export const SignIn = ({ navigation }) => {
     const {signIn} = React.useContext(AuthContext);
 
@@ -92,6 +98,12 @@ export const SignIn = ({ navigation }) => {
             </View>
     
             <View style={styles.getStartedContainer}>
+            <TouchableOpacity
+                style={styles.button}
+                onPress={()=> getLogin()}
+            >
+            <Text style = {styles.buttonText}>Test Spotify Login</Text>
+            </TouchableOpacity>
             <TouchableOpacity
                 style={styles.button}
                 onPress={()=> signIn()}
