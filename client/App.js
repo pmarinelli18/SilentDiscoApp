@@ -73,14 +73,16 @@ return {
 
   return(
     <AuthContext.Provider value = {authContext}>
-      <NavigationContainer>
+      <NavigationContainer theme={MyTheme}>
         {userToken ? (
-            <Tabs.Navigator initialRouteName = "Home">
+          <Tabs.Navigator initialRouteName = "Home" tabBarOptions={{
+            activeTintColor: '#000000',
+          }}>
             <Tabs.Screen 
               name = "Home" 
               component = {HomeStackScreen}
               options={{
-                tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-home" />,
+                tabBarIcon: ({ focused, color }) => <TabBarIcon focused={focused} name="md-home" color={color}/>,
               }}
             />
             <Tabs.Screen 
@@ -118,8 +120,19 @@ return {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ffffff',
+    backgroundColor: '#000000',
     alignItems: 'center',
     justifyContent: 'center',
   },
 });
+
+const MyTheme = {
+  dark: false,
+  colors: {
+    primary: '#000000',
+    background: '#000000',
+    card: '#ff8b3d',
+    text: '#000000',
+    border: '#000000',
+  },
+};

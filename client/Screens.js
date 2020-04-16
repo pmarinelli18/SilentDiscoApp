@@ -2,17 +2,36 @@ import React from 'react';
 import {Image, View, Text, StyleSheet, Button,TouchableOpacity} from 'react-native';
 
 import { AuthContext } from './context';
-
-
+import trendingDiscos from './data/trendingDiscos.json';
 
 const ScreenContainer = ({ children }) =>(
 <View style ={styles.container}>{children}</View>
 );
 
 export const Home =({ navigation }) => (
-    <ScreenContainer>
-        <Text>Master List Screen</Text>
-        <Button title="React Native by Example" onPress ={()=> navigation.push('Details', {name: "John"})}/>
+    <ScreenContainer style = {styles.container}>
+        <View style={styles.homeContainer}> 
+            <Text style = {styles.topHeader}>Explore More</Text>
+            <Text style = {styles.subHeader1}>Trending</Text>
+            <View>
+                {
+                    trendingDiscos.map((item, i)  => {
+                        return(
+                            <TouchableOpacity
+                                onPress ={()=> navigation.push('Details', trendingDiscos[i])}
+                                key={i}
+                            >
+                                <Image source={{uri: trendingDiscos[i].songs[0].albumCover}}
+                                    style={styles.discoImage}
+                                />
+                            </TouchableOpacity>
+                        );
+                    })
+                }
+            </View>
+            <Text style = {styles.subHeader1}>Nearby Discos</Text>
+            <Text style = {styles.subHeader2}>Friends</Text>
+        </View>
     </ScreenContainer>
 )
 export const Splash =() => (
@@ -146,7 +165,7 @@ const styles = StyleSheet.create({
       welcomeText:{
         color: '#ff8b3d',
         fontSize: 40,
-        fontFamily: 'normal',
+        // fontFamily: 'normal',
         fontWeight: '100',
         marginBottom: 50
       },
@@ -165,5 +184,34 @@ const styles = StyleSheet.create({
       getStartedContainer: {
         alignItems: 'center',
         marginHorizontal: 50,
+      },
+      topHeader:{
+        color: '#ff8b3d',
+        fontSize: 40,
+        fontWeight: '100',
+        marginBottom: 20
+      },
+      subHeader1:{
+        color: '#008272',
+        fontSize: 35,
+        fontWeight: '100',
+        marginBottom: 20
+      },
+      subHeader2:{
+        color: '#ff8b3d',
+        fontSize: 35,
+        fontWeight: '100',
+        marginBottom: 20
+      },
+      homeContainer: {
+        marginLeft: 30,
+        marginRight: 30,
+        marginBottom: 20,
+      },
+      discoImage: {
+        width: 120,
+        height: 120,
+        resizeMode: 'contain',
+        marginBottom: 20,  
       },
 });
