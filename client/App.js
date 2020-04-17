@@ -3,7 +3,6 @@ import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator} from '@react-navigation/stack'
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
-
 import {AuthContext} from './context'
 import {SignIn, CreateAccount, Profile, Home, Details, Splash, NewParty} from './Screens';
 
@@ -15,20 +14,24 @@ const ProfileStack = createStackNavigator();
 
 const HomeStackScreen = () => (
   <HomeStack.Navigator> 
-    <HomeStack.Screen name= 'Home' component ={Home}/>
+    <HomeStack.Screen options={{headerShown: false}} name= 'Home' component ={Home}/>
     <HomeStack.Screen name= 'Details' component ={Details} 
-    options ={({ route }) => ({title: route.params.name})}/>
+    options =
+    {{headerShown: false}}
+    //, ({ route }) => ({title: route.params.name})}
+    
+    />
   </HomeStack.Navigator>
 )
 
 const ProfileStackScreen = () => (
   <ProfileStack.Navigator> 
-    <ProfileStack.Screen name= 'Profile' component ={Profile}/>
+    <ProfileStack.Screen options={{headerShown: false}} name= 'Profile' component ={Profile}/>
   </ProfileStack.Navigator>
 )
 const NewPartyStackScreen = () => (
   <ProfileStack.Navigator> 
-    <ProfileStack.Screen name= 'NewParty' component ={NewParty}/>
+    <ProfileStack.Screen options={{headerShown: false}} name= 'NewParty' component ={NewParty}/>
   </ProfileStack.Navigator>
 )
 
@@ -38,6 +41,8 @@ const TabsScreen = () => (
       <Tabs.Screen name = "Profile" component = {ProfileStackScreen} />
     </Tabs.Navigator>
 )
+
+
 
 export default() => {
   const [isLoading, setIsLoading] = React.useState(true);
@@ -75,20 +80,29 @@ return {
     <AuthContext.Provider value = {authContext}>
       <NavigationContainer theme={MyTheme}>
         {userToken ? (
+          
           <Tabs.Navigator initialRouteName = "Home" tabBarOptions={{
+            headerShown: false,
             activeTintColor: '#000000',
-          }}>
+          }}
+          
+          >
             <Tabs.Screen 
               name = "Home" 
               component = {HomeStackScreen}
-              options={{
+              
+              options={
+              {
+                
                 tabBarIcon: ({ focused, color }) => <TabBarIcon focused={focused} name="md-home" color={color}/>,
-              }}
+              }
+              }
             />
             <Tabs.Screen 
               name = "NewParty" 
               component = {NewPartyStackScreen}
               options={{
+                
                 tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-add-circle" />,
               }}
             />
@@ -96,6 +110,7 @@ return {
               name = "Profile"
               component = {ProfileStackScreen}
               options={{
+                
                 tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-person" />,
               }} 
              />

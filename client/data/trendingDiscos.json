@@ -8,6 +8,73 @@
                 "artist" : "Griz",
                 "albumCover" : "https://upload.wikimedia.org/wikipedia/en/a/ac/GRiZ-Good-Will-Prevail.png",
                 "votes" : 0
+            },
+            {
+                "name" : "Good Times Roll",
+                "artist" : "Griz",
+                "albumCover" : "https://upload.wikimedia.org/wikipedia/en/a/ac/GRiZ-Good-Will-Prevail.png",
+                "votes" : 0
+            },
+            {
+                "name" : "Good Times Roll",
+                "artist" : "Griz",
+                "albumCover" : "https://upload.wikimedia.org/wikipedia/en/a/ac/GRiZ-Good-Will-Prevail.png",
+                "votes" : 0
+            },
+            {
+                "name" : "Good Times Roll",
+                "artist" : "Griz",
+                "albumCover" : "https://upload.wikimedia.org/wikipedia/en/a/ac/GRiZ-Good-Will-Prevail.png",
+                "votes" : 0
+            },
+            {
+                "name" : "Good Times Roll",
+                "artist" : "Griz",
+                "albumCover" : "https://upload.wikimedia.org/wikipedia/en/a/ac/GRiZ-Good-Will-Prevail.png",
+                "votes" : 0
+            },
+            {
+                "name" : "Good Times Roll",
+                "artist" : "Griz",
+                "albumCover" : "https://upload.wikimedia.org/wikipedia/en/a/ac/GRiZ-Good-Will-Prevail.png",
+                "votes" : 0
+            },
+            {
+                "name" : "Good Times Roll",
+                "artist" : "Griz",
+                "albumCover" : "https://upload.wikimedia.org/wikipedia/en/a/ac/GRiZ-Good-Will-Prevail.png",
+                "votes" : 0
+            },
+            {
+                "name" : "Good Times Roll",
+                "artist" : "Griz",
+                "albumCover" : "https://upload.wikimedia.org/wikipedia/en/a/ac/GRiZ-Good-Will-Prevail.png",
+                "votes" : 0
+            },
+            {
+                "name" : "Good Times Roll",
+                "artist" : "Griz",
+                "albumCover" : "https://upload.wikimedia.org/wikipedia/en/a/ac/GRiZ-Good-Will-Prevail.png",
+                "votes" : 0
+            }
+
+        ],
+        "users" : [
+            "Eric",
+            "Cory",
+            "Peyton",
+            "Anthony"
+        ]
+    },
+    {
+        "name" : "HomeFest-18",
+        "dj": "Eric",
+        "songs": [
+            {
+                "name" : "Good Times Roll",
+                "artist" : "Griz",
+                "albumCover" : "https://upload.wikimedia.org/wikipedia/en/a/ac/GRiZ-Good-Will-Prevail.png",
+                "votes" : 0
             }
         ],
         "users" : [
@@ -18,7 +85,25 @@
         ]
     },
     {
-        "name" : "HomeFest-19",
+        "name" : "HomeFest-18",
+        "dj": "Eric",
+        "songs": [
+            {
+                "name" : "Good Times Roll",
+                "artist" : "Griz",
+                "albumCover" : "https://upload.wikimedia.org/wikipedia/en/a/ac/GRiZ-Good-Will-Prevail.png",
+                "votes" : 0
+            }
+        ],
+        "users" : [
+            "Eric",
+            "Cory",
+            "Peyton",
+            "Anthony"
+        ]
+    },
+    {
+        "name" : "HomeFest-18",
         "dj": "Eric",
         "songs": [
             {
