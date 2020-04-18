@@ -3,6 +3,21 @@
         "name": "anthony",
         "password": "password",
         "image":"https://upload.wikimedia.org/wikipedia/en/a/ac/GRiZ-Good-Will-Prevail.png"
+    },
+    {
+        "name": "eric",
+        "password": "password",
+        "image":"https://upload.wikimedia.org/wikipedia/en/a/ac/GRiZ-Good-Will-Prevail.png"
+    },
+    {
+        "name": "cory",
+        "password": "password",
+        "image":"https://upload.wikimedia.org/wikipedia/en/a/ac/GRiZ-Good-Will-Prevail.png"
+    },
+    {
+        "name": "peyton",
+        "password": "password",
+        "image":"https://upload.wikimedia.org/wikipedia/en/a/ac/GRiZ-Good-Will-Prevail.png"
     }
 
 ]
