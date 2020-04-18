@@ -64,7 +64,7 @@ export const Home =({ navigation }) => (
                         users.map((item, i)  => {
                             return(
                                 <TouchableOpacity
-                                    onPress ={()=> navigation.push('friendProfile', users[i])}
+                                    onPress ={()=> navigation.push('FriendProfile', users[i])}
                                     key={i}
                                 >
                                     <Image source={{uri: users[i].image}}
@@ -105,10 +105,14 @@ export const Profile =(navigation) => {
     </ScreenContainer>
     );
     };
-export const friendProfile = ({route})=>(
-    <View>
-
-    </View>
+    
+export const FriendProfile = ({route})=>(
+    <ScreenContainer>
+        <View>
+            <Text>hey</Text>
+        </View>
+    </ScreenContainer>
+    
 )
 
 export const Details = ({route}) => (
