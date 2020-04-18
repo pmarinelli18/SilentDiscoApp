@@ -1,23 +1,8 @@
 [
     {
-        "name": "anthony",
+        "name": "Anthony",
         "password": "password",
-        "image":"https://upload.wikimedia.org/wikipedia/en/a/ac/GRiZ-Good-Will-Prevail.png"
-    },
-    {
-        "name": "eric",
-        "password": "password",
-        "image":"https://upload.wikimedia.org/wikipedia/en/a/ac/GRiZ-Good-Will-Prevail.png"
-    },
-    {
-        "name": "cory",
-        "password": "password",
-        "image":"https://upload.wikimedia.org/wikipedia/en/a/ac/GRiZ-Good-Will-Prevail.png"
-    },
-    {
-        "name": "peyton",
-        "password": "password",
-        "image":"https://upload.wikimedia.org/wikipedia/en/a/ac/GRiZ-Good-Will-Prevail.png"
+        "image":"https://organicthemes.com/demo/profile/files/2018/05/profile-pic.jpg"
     }
 
 ]

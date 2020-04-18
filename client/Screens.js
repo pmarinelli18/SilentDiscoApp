@@ -6,7 +6,6 @@ import Constants from 'expo-constants';
 import { AuthContext } from './context';
 import users from './data/users.json';
 import trendingDiscos from './data/trendingDiscos.json';
-import users from './data/users.json';
 import { bold } from 'colorette';
 import { processFontFamily } from 'expo-font';
 import { SafeAreaView } from 'react-native-safe-area-context';
