@@ -4,7 +4,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator} from '@react-navigation/stack'
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import {AuthContext} from './context'
-import {SignIn, CreateAccount, Profile, Home, Details, FriendProfile, Splash, NewParty} from './Screens';
+import {SignIn, LoginInfo, CreateAccount, Profile, Home, Details, FriendProfile, Splash, NewParty} from './Screens';
 
 import TabBarIcon from './components/TabBarIcon';
 const AuthStack = createStackNavigator();
@@ -129,7 +129,17 @@ return {
           name = "SignIn" 
           component ={SignIn} 
           options={{headerShown: false}}/>
-          <AuthStack.Screen name = "CreateAccount" component ={CreateAccount} options = {{title: 'Create Account'}}/>
+
+          <AuthStack.Screen 
+          name = "CreateAccount" 
+          component ={CreateAccount} 
+          options = {{title: 'Create Account'}}/>
+          
+          <AuthStack.Screen 
+          name = "LoginInfo" 
+          component ={LoginInfo} 
+          options={{headerShown: false}}/>
+          
         </AuthStack.Navigator>
         )
         }
