@@ -1,13 +1,20 @@
 import React from 'react';
-import {FlatList, ScrollView, Image, View, Text, StyleSheet, Button,TouchableOpacity} from 'react-native';
+import {Image, View, Text, StyleSheet, Button,TouchableOpacity} from 'react-native';
+import Carousel from 'react-native-anchor-carousel';
+import {Dimensions, Grid, AsyncStorage, TextInput,ScrollView,FlatList, Platform} from 'react-native';
+import Constants from 'expo-constants';
 import { AuthContext } from './context';
 import trendingDiscos from './data/trendingDiscos.json';
-import Icon from 'react-native-vector-icons/AntDesign';
-
-
+import { bold } from 'colorette';
+import { processFontFamily } from 'expo-font';
+import { SafeAreaView } from 'react-native-safe-area-context';
+const {width, height} = Dimensions.get("window"),
+vw = width / 100,
+vh = height / 100
 const ScreenContainer = ({ children }) =>(
 <View style ={styles.container}>{children}</View>
 );
+
 
 export const Home =({ navigation }) => (
     
@@ -125,13 +132,13 @@ export const SignIn = ({ navigation }) => {
 
     return (
         <ScreenContainer style = {styles.container}>
-            <View style={styles.loginContainer}> 
-                <Text style = {styles.welcomeText}>Silent Disco</Text>
+            <View style={styles.welcomeContainer}> 
+                <Text style = {styles.welcomeText}>S I L E N T  D I S C O</Text>
                 <Image
                 source={
                     __DEV__
-                    ? require('./assets/SilentDiscoLogo.png')
-                    : require('./assets/SilentDiscoLogo.png')
+                    ? require('./assets/SilentDiscoNew-01.png')
+                    : require('./assets/SilentDiscoNew-01.png')
                 }
                 style={styles.welcomeImage}
                 />
@@ -142,26 +149,25 @@ export const SignIn = ({ navigation }) => {
                 style={styles.button}
                 onPress={()=> getLogin()}
             >
-            <Text style = {styles.buttonText}>Test Spotify Login</Text>
+            <Text style = {styles.buttonText}>S P O T I F Y</Text>
             </TouchableOpacity>
             <TouchableOpacity
                 style={styles.button}
                 onPress={()=> signIn()}
             >
-            <Text style = {styles.buttonText}>Login</Text>
+            <Text style = {styles.buttonText}>L O G I N</Text>
             </TouchableOpacity>
             <TouchableOpacity
-                style={styles.button}
+                style={styles.button2}
                 onPress={()=> navigation.push('CreateAccount')}
             >
-                <Text style = {styles.buttonText}>Create New Account</Text>
+                <Text style = {styles.buttonText}>S I G N  U P</Text>
             </TouchableOpacity>
             </View>
 
           </ScreenContainer>
     )
 }
-
 export const CreateAccount = () => {
 
     const {signUp} = React.useContext(AuthContext);
@@ -178,9 +184,9 @@ export const CreateAccount = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1, 
-        backgroundColor: '#212121',
-        //justifyContent: 'center',
-        //alignContent: 'center'
+        backgroundColor: '#09090a',
+        justifyContent: 'center',
+        alignContent: 'center'
     },
     button: {
  
@@ -190,19 +196,43 @@ const styles = StyleSheet.create({
         paddingLeft:40,
         paddingRight: 40,
         alignItems: "center",
-        backgroundColor:'#008272',
-        borderRadius:50,
-        borderWidth: 1,
-        borderColor: '#000000'
+        backgroundColor:'#3ae0d5',
+        borderRadius:18,
+        width:230,
+        height:50,
+        
+       
+      },
+
+      button2: {
+ 
+        marginTop:30,
+        paddingTop:12,
+        paddingBottom:12,
+        paddingLeft:40,
+        paddingRight: 40,
+        alignItems: "center",
+        backgroundColor:'#00a6ff',
+        borderRadius:18,
+        width:230,
+        height:50,
+        
+       
+       
       },
     buttonText:{
         fontSize:18,
-        
-    },
+        fontWeight:"400",
+      },
+      loginContainer:{
+        alignItems:'center',
+        marginTop: 10,
+        marginBottom: 20
+      },
     loginContainer:{
         justifyContent: 'center',
         alignItems:'center',
-        marginTop:100,
+        marginTop:10,
         marginBottom: 20
     },
     OvalShapeView: {
@@ -216,7 +246,7 @@ const styles = StyleSheet.create({
         ]
     },
     welcomeText:{
-        color: '#ff8b3d',
+        color: '#ffffff',
         fontSize: 40,
         // fontFamily: 'normal',
         fontWeight: '100',
