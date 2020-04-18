@@ -15,7 +15,7 @@ const ProfileStack = createStackNavigator();
 const HomeStackScreen = () => (
   <HomeStack.Navigator> 
     <HomeStack.Screen options={{headerShown: false}} name= 'Home' component ={Home}/>
-    <HomeStack.Screen name= 'Details' component ={Details} 
+    <HomeStack.Screen name = 'Details' component ={Details}
     options =
     {{headerShown: false}}
     //, ({ route }) => ({title: route.params.name})}
