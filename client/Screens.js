@@ -391,7 +391,7 @@ const styles = StyleSheet.create({
     friendImage: {
         width: 90,
         height: 90,
-        borderRadius:50,
+        borderRadius:150,
         resizeMode: 'contain',
         marginLeft: 10,
         marginRight: 10,
