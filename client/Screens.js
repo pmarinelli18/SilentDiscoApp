@@ -4,6 +4,7 @@ import {Image, View, Text, StyleSheet, Button,TouchableOpacity} from 'react-nati
 import {Dimensions, Grid, AsyncStorage, TextInput,ScrollView,FlatList, Platform} from 'react-native';
 import Constants from 'expo-constants';
 import { AuthContext } from './context';
+import users from './data/users.json';
 import trendingDiscos from './data/trendingDiscos.json';
 import { bold } from 'colorette';
 import { processFontFamily } from 'expo-font';
@@ -71,6 +72,23 @@ export const Profile =(navigation) => {
     return(
     <ScreenContainer>
         <Text>Profile Screen</Text>
+        <ScrollView horizontal = {true}>
+                {
+                    users.map((item, i)  => {
+                        return(
+                            <TouchableOpacity
+                                onPress ={()=> navigation.push('Details', trendingDiscos[i])}
+                                key={i}
+                            >
+                                <Image source={{uri: users[i].image}}
+                                    style={styles.discoImage}
+                                />
+                            </TouchableOpacity>
+                        );
+                    })
+                }
+            </ScrollView>
+        
         <Button title ="Test Navigate"
         onPress={()=> { 
             navigation.navigate(
