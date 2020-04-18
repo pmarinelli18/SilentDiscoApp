@@ -105,7 +105,7 @@ export const Details = ({route}) => (
                                 </View>
                                 <Text style = {styles.songVotes}>{route.params.songs[i].votes}</Text>
                                 <TouchableOpacity style = {styles.upvote}>
-                                <Icon name="arrowup" size = {20} color="#008272"/>
+                                <Icon name="arrowup" size = {20} color="#3ae0d5"/>
                                 </TouchableOpacity>
                             </View>
 
@@ -378,7 +378,7 @@ const styles = StyleSheet.create({
         //fontFamily: 'sans-serif-medium',
         alignSelf:"center",
         fontSize: 40,
-        color: '#008272',
+        color: '#3ae0d5',
         marginTop: 10,
         marginBottom: 30
 
