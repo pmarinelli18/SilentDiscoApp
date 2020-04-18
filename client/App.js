@@ -146,7 +146,7 @@ const MyTheme = {
   colors: {
     primary: '#000000',
     background: '#000000',
-    card: '#ff8b3d',
+    card: '#00a6ff',
     text: '#000000',
     border: '#000000',
   },

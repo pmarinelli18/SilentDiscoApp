@@ -21,7 +21,7 @@ export const Home =({ navigation }) => (
     
     <ScreenContainer style = {styles.container}>
         <View style={styles.homeContainer}> 
-            <Text style = {styles.topHeader}>Explore</Text>
+            <Text style = {styles.topHeader}>Explore More</Text>
             <Text style = {styles.subHeader1}>Trending</Text>
             <ScrollView horizontal = {true}>
                 {
@@ -270,21 +270,18 @@ const styles = StyleSheet.create({
         marginHorizontal: 50,
     },
     topHeader:{
-        borderBottomColor:"#000000",
-        borderBottomWidth: 3,
-        width: '80%',
-        color: '#ff8b3d',
-        fontSize: 40,
-        fontWeight: 'bold',
+        color: '#00a6ff',
+        fontSize: 35,
+        fontWeight: '500',
+        marginTop:10,
         marginBottom: 20
-    },
-    subHeader1:{
-        color: '#008272',
+      },
+      subHeader1:{
+        color: '#3ae0d5',
         fontSize: 25,
-        fontWeight: '100',
-        //fontFamily: 'monospace',
+        fontWeight: '400',
         marginBottom: 20
-    },
+      },
     subHeader2:{
         borderBottomColor:"#000000",
         borderBottomWidth: 3,
@@ -297,7 +294,7 @@ const styles = StyleSheet.create({
         marginLeft: 30,
         marginRight: 30,
         marginBottom: 20,
-        marginTop: 80,
+       
     },
     discoImage: {
         width: 120,
