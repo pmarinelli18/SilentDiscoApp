@@ -1,6 +1,6 @@
 import React from 'react';
 import {Image, View, Text, StyleSheet, Button,TouchableOpacity} from 'react-native';
-import Carousel from 'react-native-anchor-carousel';
+// import Carousel from 'react-native-anchor-carousel';
 import {Dimensions, Grid, AsyncStorage, TextInput,ScrollView,FlatList, Platform} from 'react-native';
 import Constants from 'expo-constants';
 import { AuthContext } from './context';
@@ -8,6 +8,7 @@ import trendingDiscos from './data/trendingDiscos.json';
 import { bold } from 'colorette';
 import { processFontFamily } from 'expo-font';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import Icon from 'react-native-vector-icons/AntDesign';
 const {width, height} = Dimensions.get("window"),
 vw = width / 100,
 vh = height / 100
