@@ -11,7 +11,7 @@ import { bold } from 'colorette';
 import { processFontFamily } from 'expo-font';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/AntDesign';
-import { SearchBar } from 'react-native-elements';
+import { SearchBar,Overlay } from 'react-native-elements';
 import { SearchableDropdown } from'react-native-searchable-dropdown'
 import { Autocomplete } from'react-native-autocomplete-input'
 import Collapsible from 'react-native-collapsible';
@@ -164,14 +164,15 @@ export const Details = ({route, navigation}) => {
     const upVote = () => {
 
     }
-    const [collapseUsers] = useState(false)
+    const [collapseUsers, setCollapseUsers] = useState(false)
     const updateCollapse = () => {
-        collapseUsers(!collapseUsers)
+        setCollapseUsers(!collapseUsers)
     }
 
 
     return(    
         <ScreenContainer>
+        <View style = {styles.behind}>
             <View style={styles.discoContainer}>
                 <TouchableOpacity
                     style={styles.queueButton}
@@ -184,7 +185,7 @@ export const Details = ({route, navigation}) => {
                 />
                 <Text style = {styles.discoTitle}>{route.params.name}</Text>
             </View>
-                <ScrollView>
+                <ScrollView style = {styles.songList}>
                         {
                             route.params.songs.map((item, i)  => {
                                 return(
@@ -203,14 +204,29 @@ export const Details = ({route, navigation}) => {
                             })
                         }
                     </ScrollView>
-                    <TouchableOpacity onPress = {()=>updateCollapse()} style = {styles.toggleCollapse}>
-                        <Text> Pull up</Text>
-                    </TouchableOpacity>
-                    <Collapsible collapsed = {collapseUsers}>
-                    <View style = {styles.friendList}>
-                        <Text>users</Text>
-                    </View>
-                    </Collapsible>                
+            </View>
+            
+            <View stlye = {styles.front}>
+                <TouchableOpacity onPress = {()=>updateCollapse()} style = {styles.toggleCollapse}>
+                    <Text>Contributers</Text>
+                </TouchableOpacity>
+                <Collapsible collapsed = {collapseUsers}>
+                <View style = {styles.friendList}>
+                <ScrollView>
+                        {
+                            route.params.songs.map((item, i)  => {
+                                return( 
+                                <Text style = {{textAlign: 'center'}} key={i}>{route.params.users[i]}</Text>
+                                );
+                            })
+                        }
+                    </ScrollView>
+                </View>
+                </Collapsible>
+            </View>
+                         
+                    
+                                   
         </ScreenContainer>
     )
 }
@@ -480,7 +496,7 @@ const styles = StyleSheet.create({
         height: 60,
         alignSelf: 'center',
         alignContent: 'space-between',
-        width: '90%',
+        width: '100%',
         marginLeft:10,
         marginRight: 10,
         
@@ -642,17 +658,61 @@ const styles = StyleSheet.create({
     },
     friendView:{
         width:'100%',
+        flex: 1,
         flexDirection: 'row',
         flexWrap: 'wrap',
     },
     toggleCollapse:{
-        height: 25,
-        width:"100%",
-        backgroundColor: "#FFF"
+        width: 250,
+        height: 0,
+        borderBottomColor: "#00BCD4",
+        borderBottomWidth: 28,
+        borderLeftWidth: 15,
+        borderRightWidth: 15,
+        borderTopEndRadius:15,
+        borderRightColor: 'transparent',
+        borderLeftColor: 'transparent',
+        flex:1,
+        marginTop:"175%",
+        alignItems: 'center',
+        alignSelf:'center'
     },
     friendList:{
-        height: 25,
-        width:"100%",
+        height: 200,
+        width:250,
+        flex: 1,
+        alignSelf: 'center',
+        alignItems: 'center',
         backgroundColor: "#AAA"
+    },
+    songList:{
+        width:"100%"
+    },
+    bottomOverlay:{
+        position: 'absolute',
+            right: 10,
+            top: 40,
+            flexDirection: "row",
+            height: 60,
+            alignItems: "center",
+            padding: 10
+    },
+    behind:{
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'absolute',
+        left: 0,
+        top: 0,
+        width: '100%',
+        height: '100%'
+        
+    },
+    front:{
+        
+        flexDirection:'column',
+        width: '100%',
+        height: '100%',
+        
     }
+
 });
