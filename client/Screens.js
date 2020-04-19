@@ -1,16 +1,21 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Image, View, Text, StyleSheet, Button,TouchableOpacity} from 'react-native';
 // import Carousel from 'react-native-anchor-carousel';
-import { Dimensions, Grid, AsyncStorage, TextInput,ScrollView,FlatList, Platform} from 'react-native';
+import {Dimensions, Grid, AsyncStorage, TextInput, ScrollView,FlatList, Platform, Picker} from 'react-native';
 import Constants from 'expo-constants';
 import { AuthContext } from './context';
 import users from './data/users.json';
 import trendingDiscos from './data/trendingDiscos.json';
+import songs from './data/songs.json';
 import { bold } from 'colorette';
 import { processFontFamily } from 'expo-font';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Audio } from 'expo-av';
 import Icon from 'react-native-vector-icons/AntDesign';
+import { SearchBar } from 'react-native-elements';
+import { SearchableDropdown } from'react-native-searchable-dropdown'
+import { Autocomplete } from'react-native-autocomplete-input'
+
 const {width, height} = Dimensions.get("window"),
 vw = width / 100,
 vh = height / 100
@@ -100,77 +105,118 @@ export const Splash =() => (
     </ScreenContainer>
 )
 
-export const Profile =(navigation) => {
-    const {signOut} = React.useContext(AuthContext);
-    return(
-    <ScreenContainer>
-        <Text>Profile Screen</Text>
-        <ScrollView horizontal = {true}>
-                {
-                    users.map((item, i)  => {
-                        return(
-                            <TouchableOpacity
-                                onPress ={()=> navigation.push('Details', trendingDiscos[i])}
-                                key={i}
-                            >
-                                <Image source={{uri: users[i].image}}
-                                    style={styles.discoImage}
+export const Profile =(navigation) => (
+    <ScreenContainer style = {styles.homeContainer}>
+        <Image source={{uri: users[0].image}}
+                                    style={styles.profileImage}
                                 />
-                            </TouchableOpacity>
-                        );
-                    })
+        <Text style = {styles.profileTitle}>{users[0].name}</Text>
+        <ScrollView>
+                {
+                    
                 }
             </ScrollView>
-        
-        <Button title ="Test Navigate"
-        onPress={()=> { 
-            navigation.navigate(
-            'Home', {
-            screen: 'Details',
-            params: {name: "steve"}
-            })
-        }}
-        />
-        <Button title ="Sign Out"
-        onPress={()=> { signOut()
-        }} />
     </ScreenContainer>
-    );
-    };
+)
 export const FriendProfile = ({route})=>(
+
+
     <View>
 
     </View>
 )
 
-export const Details = ({route}) => (
-    
-    <ScreenContainer style = {styles.homeContainer}>
-        <Image source={{uri: trendingDiscos[0].songs[0].albumCover}}
-                                    style={styles.discoPageImage}
-                                />
-        <Text style = {styles.discoTitle}>{route.params.name}</Text>
-        <ScrollView>
-                {
-                    route.params.songs.map((item, i)  => {
-                        return(
-                            <View style = {styles.songItem} key={i}>
-                                <View style = {styles.songText}>
-                                    <Text style = {styles.songName}>{route.params.songs[i].name}</Text>
-                                    <Text style = {styles.artistText}>{route.params.songs[i].artist}</Text>
-                                </View>
-                                <Text style = {styles.songVotes}>{route.params.songs[i].votes}</Text>
-                                <TouchableOpacity style = {styles.upvote}>
-                                <Icon name="arrowup" size = {20} color="#3ae0d5"/>
-                                </TouchableOpacity>
-                            </View>
+export const Songs =({route, navigation}) => {
+    const [search, setSearch] = useState('')
 
-                        );
+    const data = songs.filter(song => (song.name.toLowerCase().includes(search.toLowerCase())) 
+                                        || (song.artist.toLowerCase().includes(search.toLowerCase())))
+
+    const updateSearch = (text) => {
+        setSearch(text)
+    }
+
+    const queue = () => {
+        navigation.push('Details', trendingDiscos[route.params])
+    }
+
+    return(
+    <ScreenContainer>
+        <View style={styles.songsContainer}>
+            <TextInput
+                style={{ height: 40, borderColor: '#00a6ff',borderRadius: 20 , borderWidth: 1, color: '#FFFFFF', backgroundColor: 'rgba(100, 100, 100, 0.5)', marginTop: 60}}
+                placeholderTextColor = "#00a6ff"
+                onChangeText={text => updateSearch(text)}
+                placeholder="Search Song..."
+                textAlign= 'center'
+            />
+            <ScrollView >
+                {
+                    data.map((item, i)  => {
+                        return(
+                            <TouchableOpacity
+                                onPress ={queue}
+                                key={i}
+                            >
+                                <View style = {styles.searchItem} key={i}>
+                                    <View style = {styles.songText}>
+                                        <Text style = {styles.searchSongName}>{item.name}</Text>
+                                        <Text style = {styles.searchArtistText}>{item.artist}</Text>
+                                    </View>
+                                    <Image style={styles.searchAlbumCover}source={{uri: item.albumCover}}/>
+                                </View>
+                            </TouchableOpacity>
+                );
                     })
                 }
+
             </ScrollView>
+        </View>
     </ScreenContainer>
-)
+    );
+};
+
+export const Details = ({route, navigation}) => {
+    const upVote = () => {
+        
+    }
+    
+    return(    
+        <ScreenContainer>
+            <View style={styles.discoContainer}>
+                <TouchableOpacity
+                    style={styles.queueButton}
+                    onPress ={()=> navigation.push('Songs', route.params.ID)}
+                >
+                    <Text style = {styles.queueText}>Queue a Song</Text>
+                </TouchableOpacity>
+                <Image source={{uri: trendingDiscos[0].songs[0].albumCover}}
+                    style={styles.discoPageImage}
+                />
+                <Text style = {styles.discoTitle}>{route.params.name}</Text>
+            </View>
+                <ScrollView>
+                        {
+                            route.params.songs.map((item, i)  => {
+                                return(
+                                    <View style = {styles.songItem} key={i}>
+                                        <View style = {styles.songText}>
+                                            <Text style = {styles.songName}>{route.params.songs[i].name}</Text>
+                                            <Text style = {styles.artistText}>{route.params.songs[i].artist}</Text>
+                                        </View>
+                                        <Text style = {styles.songVotes}>{route.params.songs[i].votes}</Text>
+                                        <TouchableOpacity style = {styles.upvote} onPress={upVote}>
+                                        <Icon name="arrowup" size = {20} color="#3ae0d5"/>
+                                        </TouchableOpacity>
+                                    </View>
+
+                                );
+                            })
+                        }
+                    </ScrollView>                
+        </ScreenContainer>
+    )
+}
 
 export const NewParty = () => (
     <ScreenContainer>
@@ -392,9 +438,10 @@ const styles = StyleSheet.create({
     homeContainer: {
         marginLeft: 30,
         marginRight: 30,
-        marginBottom: 20,
+        marginTop: 80,
        
     },
+
     discoImage: {
         width: 120,
         height: 120,
@@ -413,6 +460,21 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         flex: 1
     },
+
+    profileImage:{
+            width: 120,
+            height: 120,
+            borderRadius:50,
+            resizeMode: 'contain',
+            alignSelf: "center",
+            flex: 1
+    },
+
+    followers:{
+        flexDirection: "row",
+        flexWrap: "wrap"
+    },
+    
     displayAsRow:{
         flexDirection: 'row',
     },
@@ -478,7 +540,7 @@ const styles = StyleSheet.create({
         width: 150,
         height: 150,
         alignSelf: "center",
-        marginTop:80,
+        marginTop:40,
         marginBottom: 30,
 
     },
@@ -491,6 +553,95 @@ const styles = StyleSheet.create({
         marginTop: 10,
         marginBottom: 30
 
+    },
+    profileTitle:{
+
+        //fontFamily: 'sans-serif-medium',
+        alignSelf:"center",
+        fontSize: 25,
+        color: '#3ae0d5',
+        marginTop: -160,
+        marginBottom: 30,
+        fontWeight: "bold"
+    },
+    discoContainer: {
+        marginLeft: 30,
+        marginRight: 30,
+        marginBottom: 20,
+        marginTop: 20,
+        alignItems: "center"
+    },
+    songsButton:{
+        marginTop:30,
+        paddingTop:12,
+        paddingBottom:12,
+        paddingLeft:40,
+        paddingRight: 40,
+        alignItems: "center",
+        backgroundColor:'#3ae0d5',
+        borderRadius:18,
+        width:350,
+        height:50,
+    },
+    songsText:{
+        fontSize:18,
+        fontWeight:"400",
+    },    
+    songsContainer: {
+        marginLeft: 30,
+        marginRight: 30,
+        marginBottom: 70,
+        flex: 1,
+    }, 
+    queueButton:{
+        marginTop:30,
+        paddingTop:12,
+        paddingBottom:12,
+        paddingLeft:40,
+        paddingRight: 40,
+        alignItems: "center",
+        backgroundColor:'#00a6ff',
+        borderRadius:50,
+        width:250,
+        height:50,
+    },
+    queueText:{
+        fontSize:22,
+        fontWeight:"400",
+    }, 
+    searchItem:{
+        flex: 1,  
+        height: 60,
+        alignSelf: 'center',
+        alignContent: 'space-between',
+        width: '90%',
+        marginLeft:10,
+        marginRight: 10,       
+        flexDirection:'row',
+        borderTopColor: "#000000",
+        borderTopWidth: 1,
+        borderBottomColor: '#3ae0d5',
+        borderBottomWidth: 1,
+        
+    },
+    searchAlbumCover:{
+        width: 40,
+        height: 40,
+        marginTop: 8,
+    },
+    searchSongName:{
+        marginTop: 10,
+        marginBottom:5,
+        flex:1,
+        color: '#FFFFFF',
+        fontSize: 15,
+    },
+    searchArtistText:{
+        marginBottom:5,
+        flex:1,
+        color: '#AAA',
+        fontSize: 12,
+        marginRight: 10,
     },
     friendView:{
         width:'100%',
