@@ -201,27 +201,15 @@ export const Songs =({route, navigation}) => {
 };
 
 export const Details = ({route, navigation}) => {
-    // navigation.setOptions(route.params.test = 3)
-    // route.params.setTest(2)
-    // console.log(route.params.test)
-    // const [, setTick] = useState(0);
-    // const update = useCallback(() => {
-    //   setTick(tick => tick + 1);
-    // }, [])
+    const [newVotes, setNewVotes] = useState(0)
 
     const upVote = (index) => {
         let thisDsico = route.params.currentDisco
         let newSongList = thisDsico.songs
-        let newVotes = newSongList[index].votes + 1
+        setNewVotes(newSongList[index].votes + 1)
         newSongList[index].votes = newVotes
         console.log(thisDsico.songs)
         route.params.currentDisco = thisDsico
-        Details.forceUpdate({route, navigation})
-        // update
-        // for(let i = 0; i < newSongList.length; i++){
-        //     if (i == )
-        // }
-
     }
     
     return(    
