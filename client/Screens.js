@@ -1,7 +1,7 @@
 import React from 'react';
 import {Image, View, Text, StyleSheet, Button,TouchableOpacity} from 'react-native';
 // import Carousel from 'react-native-anchor-carousel';
-import {Dimensions, Grid, AsyncStorage, TextInput,ScrollView,FlatList, Platform} from 'react-native';
+import { Dimensions, Grid, AsyncStorage, TextInput,ScrollView,FlatList, Platform} from 'react-native';
 import Constants from 'expo-constants';
 import { AuthContext } from './context';
 import users from './data/users.json';
@@ -64,7 +64,7 @@ export const Home =({ navigation }) => (
                         users.map((item, i)  => {
                             return(
                                 <TouchableOpacity
-                                    onPress ={()=> navigation.push('friendProfile', users[i])}
+                                    onPress ={()=> navigation.push('FriendProfile', users[i])}
                                     key={i}
                                 >
                                     <Image source={{uri: users[i].image}}
@@ -99,6 +99,8 @@ export const Profile =(navigation) => (
     </ScreenContainer>
 )
 export const friendProfile = ({route})=>(
+
+
     <View>
 
     </View>
@@ -144,7 +146,40 @@ const getLogin = async () => {
     });
     const body = await response;
 }
+export const LoginInfo = () =>{
+    
+    const {signIn} = React.useContext(AuthContext);
 
+    
+    return (
+        <ScreenContainer style = {styles.container}>
+            
+    
+            <View style={styles.getStartedContainer}>
+            <TextInput style ={styles.loginInput}
+            
+            placeholder = "username"
+            placeholderTextColor = "#555"
+            //onChangeText = {}
+            />
+            <TextInput style ={styles.loginInput}
+            placeholder = "password"
+            placeholderTextColor = "#555"
+            //onChangeText = {}
+            />
+            <TouchableOpacity
+                style={styles.button}
+                onPress ={() => signIn()}
+            >
+            <Text style = {styles.buttonText}>L O G I N</Text>
+            </TouchableOpacity>
+            
+            </View>
+
+          </ScreenContainer>
+    )
+
+}
 export const SignIn = ({ navigation }) => {
     const {signIn} = React.useContext(AuthContext);
 
@@ -171,7 +206,7 @@ export const SignIn = ({ navigation }) => {
             </TouchableOpacity>
             <TouchableOpacity
                 style={styles.button}
-                onPress={()=> signIn()}
+                onPress={()=> navigation.push('LoginInfo')}
             >
             <Text style = {styles.buttonText}>L O G I N</Text>
             </TouchableOpacity>
@@ -253,6 +288,16 @@ const styles = StyleSheet.create({
         marginTop:10,
         marginBottom: 20
     },
+    loginInput:{
+        
+        height: 40,
+        width: 150,
+        color: '#fff',
+        borderColor: '#00a6ff',
+        marginTop: 20,
+        borderRadius: 10,
+        borderWidth: 2 
+    },
     OvalShapeView: {
         marginTop: 20,
         width: 100,
@@ -325,7 +370,7 @@ const styles = StyleSheet.create({
     friendImage: {
         width: 90,
         height: 90,
-        borderRadius:50,
+        borderRadius:150,
         resizeMode: 'contain',
         marginLeft: 10,
         marginRight: 10,
