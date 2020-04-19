@@ -77,7 +77,7 @@ export const Home =({ navigation }) => (
                         trendingDiscos.map((item, i)  => {
                             return(
                                 <TouchableOpacity
-                                    onPress ={()=> navigation.push('Details', trendingDiscos[i])}
+                                    onPress ={()=> goToDisco(navigation, i)}
                                     key={i}
                                 >
                                     <Image source={{uri: trendingDiscos[i].songs[0].albumCover}}
