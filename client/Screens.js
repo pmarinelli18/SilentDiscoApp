@@ -133,30 +133,43 @@ export const FriendProfile = ({route})=>(
     </View>
 )
 
-export const Songs =({navigation, search, setSearch}) => {
+export const Songs =({navigation}) => {
+    const [search, setSearch] = useState('')
+
+    const data = songs.filter(song => (song.name.toLowerCase().includes(search.toLowerCase())) 
+                                        || (song.artist.toLowerCase().includes(search.toLowerCase())))
+
+    const updateSearch = (text) => {
+        setSearch(text)
+    }
 
     return(
     <ScreenContainer>
-        <View>
+        <View style={styles.songsContainer}>
             <TextInput
-                style={{ height: 40, borderRadius: 20 , borderWidth: 1, color: '#FFFFFF', backgroundColor: 'rgba(100, 100, 100, 0.5)', marginBottom: 20, marginTop: 160}}
-                placeholderTextColor = "#000000"
+                style={{ height: 40, borderColor: '#00a6ff',borderRadius: 20 , borderWidth: 1, color: '#FFFFFF', backgroundColor: 'rgba(100, 100, 100, 0.5)', marginTop: 60}}
+                placeholderTextColor = "#00a6ff"
                 onChangeText={text => updateSearch(text)}
                 placeholder="Search Song..."
                 textAlign= 'center'
             />
             <ScrollView >
                 {
-                    songs.map((item, i)  => {
+                    data.map((item, i)  => {
                         return(
                             <TouchableOpacity
-                                style={styles.songsButton}
-                                onPress ={()=> navigation.push('Details', trendingDiscos[i])}
+                                onPress ={()=> navigation.push('Details', trendingDiscos[0])}
                                 key={i}
                             >
-                                <Text style = {styles.songsText}>{item.song}</Text>
+                                <View style = {styles.searchItem} key={i}>
+                                    <View style = {styles.songText}>
+                                        <Text style = {styles.searchSongName}>{item.name}</Text>
+                                        <Text style = {styles.searchArtistText}>{item.artist}</Text>
+                                    </View>
+                                    <Image style={styles.searchAlbumCover}source={{uri: item.albumCover}}/>
+                                </View>
                             </TouchableOpacity>
-                        );
+                );
                     })
                 }
 
@@ -169,11 +182,6 @@ export const Songs =({navigation, search, setSearch}) => {
 export const Details = ({route, navigation}) => {
     const [search, setSearch] = useState('')
 
-    const updateSearch = (e) => {
-        // setSearch({e})
-        navigation.push('Songs')
-    }
-
     const upVote = () => {
 
     }
@@ -181,23 +189,12 @@ export const Details = ({route, navigation}) => {
     return(    
         <ScreenContainer>
             <View style={styles.discoContainer}>
-                {/* <SearchBar         
-                    placeholder="Search Song..."
-                    onChangeText={updateSearch}
-                    value={search}
-                    round
-                    style={styles.search}
-                    
-                /> */}
-                <TextInput
-                    style={{ height: 40, borderRadius: 20 , borderWidth: 1, color: '#FFFFFF', backgroundColor: 'rgba(100, 100, 100, 0.5)'}}
-                    placeholderTextColor = "#000000"
-                    onChangeText={text => updateSearch(text)}
-                    placeholder="Search Song..."
-                    textAlign= 'center'
-                    // inlineImageLeft='search_icon'
-                    
-                />
+                <TouchableOpacity
+                    style={styles.queueButton}
+                    onPress ={()=> navigation.push('Songs')}
+                >
+                    <Text style = {styles.queueText}>Queue a Song</Text>
+                </TouchableOpacity>
                 <Image source={{uri: trendingDiscos[0].songs[0].albumCover}}
                     style={styles.discoPageImage}
                 />
@@ -447,6 +444,7 @@ const styles = StyleSheet.create({
         marginLeft: 30,
         marginRight: 30,
         marginBottom: 20,
+        marginTop: 40,
        
     },
     discoImage: {
@@ -550,7 +548,8 @@ const styles = StyleSheet.create({
         marginLeft: 30,
         marginRight: 30,
         marginBottom: 20,
-        marginTop: 50,
+        marginTop: 20,
+        alignItems: "center"
     },
     songsButton:{
         marginTop:30,
@@ -561,13 +560,69 @@ const styles = StyleSheet.create({
         alignItems: "center",
         backgroundColor:'#3ae0d5',
         borderRadius:18,
-        width:230,
+        width:350,
         height:50,
     },
     songsText:{
         fontSize:18,
         fontWeight:"400",
-    },     
+    },    
+    songsContainer: {
+        marginLeft: 30,
+        marginRight: 30,
+        marginBottom: 70,
+        flex: 1,
+    }, 
+    queueButton:{
+        marginTop:30,
+        paddingTop:12,
+        paddingBottom:12,
+        paddingLeft:40,
+        paddingRight: 40,
+        alignItems: "center",
+        backgroundColor:'#00a6ff',
+        borderRadius:50,
+        width:250,
+        height:50,
+    },
+    queueText:{
+        fontSize:22,
+        fontWeight:"400",
+    }, 
+    searchItem:{
+        flex: 1,  
+        height: 60,
+        alignSelf: 'center',
+        alignContent: 'space-between',
+        width: '90%',
+        marginLeft:10,
+        marginRight: 10,       
+        flexDirection:'row',
+        borderTopColor: "#000000",
+        borderTopWidth: 1,
+        borderBottomColor: '#3ae0d5',
+        borderBottomWidth: 1,
+        
+    },
+    searchAlbumCover:{
+        width: 40,
+        height: 40,
+        marginTop: 8,
+    },
+    searchSongName:{
+        marginTop: 10,
+        marginBottom:5,
+        flex:1,
+        color: '#FFFFFF',
+        fontSize: 15,
+    },
+    searchArtistText:{
+        marginBottom:5,
+        flex:1,
+        color: '#AAA',
+        fontSize: 12,
+        marginRight: 10,
+    },
     friendView:{
         width:'100%',
         flexDirection: 'row',
