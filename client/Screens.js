@@ -98,7 +98,7 @@ export const Profile =(navigation) => (
             </ScrollView>
     </ScreenContainer>
 )
-export const friendProfile = ({route})=>(
+export const FriendProfile = ({route})=>(
 
 
     <View>
