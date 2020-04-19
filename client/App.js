@@ -4,7 +4,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator} from '@react-navigation/stack'
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import {AuthContext} from './context'
-import {SignIn, CreateAccount, Profile, Home, Details, Splash, NewParty, Songs} from './Screens';
+import {SignIn, LoginInfo, CreateAccount, Profile, Home, Details, FriendProfile, Splash, NewParty, Songs} from './Screens';
 
 import TabBarIcon from './components/TabBarIcon';
 const AuthStack = createStackNavigator();
@@ -15,7 +15,7 @@ const ProfileStack = createStackNavigator();
 const HomeStackScreen = () => (
   <HomeStack.Navigator> 
     <HomeStack.Screen options={{headerShown: false}} name= 'Home' component ={Home}/>
-    <HomeStack.Screen name= 'Details' component ={Details} 
+    <HomeStack.Screen name = 'Details' component ={Details}
     options =
     {{headerShown: false}}
     //, ({ route }) => ({title: route.params.name})}
@@ -27,6 +27,13 @@ const HomeStackScreen = () => (
       //, ({ route }) => ({title: route.params.name})}
     
     />
+    <HomeStack.Screen name = 'FriendProfile' component ={FriendProfile}
+    options =
+    {{headerShown: false}}
+    //, ({ route }) => ({title: route.params.name})}
+    
+    />
+    
   </HomeStack.Navigator>
 )
 
@@ -128,7 +135,17 @@ return {
           name = "SignIn" 
           component ={SignIn} 
           options={{headerShown: false}}/>
-          <AuthStack.Screen name = "CreateAccount" component ={CreateAccount} options = {{title: 'Create Account'}}/>
+
+          <AuthStack.Screen 
+          name = "CreateAccount" 
+          component ={CreateAccount} 
+          options = {{title: 'Create Account'}}/>
+          
+          <AuthStack.Screen 
+          name = "LoginInfo" 
+          component ={LoginInfo} 
+          options={{headerShown: false}}/>
+          
         </AuthStack.Navigator>
         )
         }

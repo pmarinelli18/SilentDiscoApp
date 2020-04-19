@@ -4,6 +4,7 @@ import {Image, View, Text, StyleSheet, Button,TouchableOpacity} from 'react-nati
 import {Dimensions, Grid, AsyncStorage, TextInput, ScrollView,FlatList, Platform, Picker} from 'react-native';
 import Constants from 'expo-constants';
 import { AuthContext } from './context';
+import users from './data/users.json';
 import trendingDiscos from './data/trendingDiscos.json';
 import songs from './data/songs.json';
 import { bold } from 'colorette';
@@ -25,44 +26,62 @@ const ScreenContainer = ({ children }) =>(
 export const Home =({ navigation }) => (
     
     <ScreenContainer style = {styles.container}>
-        <View style={styles.homeContainer}> 
-            <Text style = {styles.topHeader}>Explore More</Text>
-            <Text style = {styles.subHeader1}>Trending</Text>
-            <ScrollView horizontal = {true}>
-                {
-                    trendingDiscos.map((item, i)  => {
-                        return(
-                            <TouchableOpacity
-                                onPress ={()=> navigation.push('Details', trendingDiscos[i])}
-                                key={i}
-                            >
-                                <Image source={{uri: trendingDiscos[i].songs[0].albumCover}}
-                                    style={styles.discoImage}
-                                />
-                            </TouchableOpacity>
-                        );
-                    })
-                }
-            </ScrollView>
-            <Text style = {styles.subHeader1}>Nearby Discos</Text>
-            <ScrollView horizontal = {true}>
-                {
-                    trendingDiscos.map((item, i)  => {
-                        return(
-                            <TouchableOpacity
-                                onPress ={()=> navigation.push('Details', trendingDiscos[i])}
-                                key={i}
-                            >
-                                <Image source={{uri: trendingDiscos[i].songs[0].albumCover}}
-                                    style={styles.discoImage}
-                                />
-                            </TouchableOpacity>
-                        );
-                    })
-                }
-            </ScrollView>
-            <Text style = {styles.topHeader}>Friends</Text>
-        </View>
+        <ScrollView>
+            <View style={styles.homeContainer}> 
+                <Text style = {styles.topHeader}>Explore More</Text>
+                <Text style = {styles.subHeader1}>Trending</Text>
+                <ScrollView horizontal = {true}>
+                    {
+                        trendingDiscos.map((item, i)  => {
+                            return(
+                                <TouchableOpacity
+                                    onPress ={()=> navigation.push('Details', trendingDiscos[i])}
+                                    key={i}
+                                >
+                                    <Image source={{uri: trendingDiscos[i].songs[0].albumCover}}
+                                        style={styles.discoImage}
+                                    />
+                                </TouchableOpacity>
+                            );
+                        })
+                    }
+                </ScrollView>
+                <Text style = {styles.subHeader1}>Nearby Discos</Text>
+                <ScrollView horizontal = {true}>
+                    {
+                        trendingDiscos.map((item, i)  => {
+                            return(
+                                <TouchableOpacity
+                                    onPress ={()=> navigation.push('Details', trendingDiscos[i])}
+                                    key={i}
+                                >
+                                    <Image source={{uri: trendingDiscos[i].songs[0].albumCover}}
+                                        style={styles.discoImage}
+                                    />
+                                </TouchableOpacity>
+                            );
+                        })
+                    }
+                </ScrollView>
+                <Text style = {styles.topHeader}>Friends</Text>
+                <View style = {styles.friendView}>
+                    {
+                        users.map((item, i)  => {
+                            return(
+                                <TouchableOpacity
+                                    onPress ={()=> navigation.push('FriendProfile', users[i])}
+                                    key={i}
+                                >
+                                    <Image source={{uri: users[i].image}}
+                                        style={styles.friendImage}
+                                    />
+                                </TouchableOpacity>
+                            );
+                        })
+                    }
+                </View>
+            </View>
+        </ScrollView>
     </ScreenContainer>
 )
 export const Splash =() => (
@@ -76,6 +95,23 @@ export const Profile =(navigation) => {
     return(
     <ScreenContainer>
         <Text>Profile Screen</Text>
+        <ScrollView horizontal = {true}>
+                {
+                    users.map((item, i)  => {
+                        return(
+                            <TouchableOpacity
+                                onPress ={()=> navigation.push('Details', trendingDiscos[i])}
+                                key={i}
+                            >
+                                <Image source={{uri: users[i].image}}
+                                    style={styles.discoImage}
+                                />
+                            </TouchableOpacity>
+                        );
+                    })
+                }
+            </ScrollView>
+        
         <Button title ="Test Navigate"
         onPress={()=> { 
             navigation.navigate(
@@ -90,7 +126,12 @@ export const Profile =(navigation) => {
         }} />
     </ScreenContainer>
     );
-};
+    };
+export const FriendProfile = ({route})=>(
+    <View>
+
+    </View>
+)
 
 export const Songs =({navigation, search, setSearch}) => {
 
@@ -196,7 +237,40 @@ const getLogin = async () => {
     });
     const body = await response;
 }
+export const LoginInfo = () =>{
+    
+    const {signIn} = React.useContext(AuthContext);
 
+    
+    return (
+        <ScreenContainer style = {styles.container}>
+            
+    
+            <View style={styles.getStartedContainer}>
+            <TextInput style ={styles.loginInput}
+            
+            placeholder = "username"
+            placeholderTextColor = "#555"
+            //onChangeText = {}
+            />
+            <TextInput style ={styles.loginInput}
+            placeholder = "password"
+            placeholderTextColor = "#555"
+            //onChangeText = {}
+            />
+            <TouchableOpacity
+                style={styles.button}
+                onPress ={() => signIn()}
+            >
+            <Text style = {styles.buttonText}>L O G I N</Text>
+            </TouchableOpacity>
+            
+            </View>
+
+          </ScreenContainer>
+    )
+
+}
 export const SignIn = ({ navigation }) => {
     const {signIn} = React.useContext(AuthContext);
 
@@ -223,7 +297,7 @@ export const SignIn = ({ navigation }) => {
             </TouchableOpacity>
             <TouchableOpacity
                 style={styles.button}
-                onPress={()=> signIn()}
+                onPress={()=> navigation.push('LoginInfo')}
             >
             <Text style = {styles.buttonText}>L O G I N</Text>
             </TouchableOpacity>
@@ -305,6 +379,16 @@ const styles = StyleSheet.create({
         marginTop:10,
         marginBottom: 20
     },
+    loginInput:{
+        
+        height: 40,
+        width: 150,
+        color: '#fff',
+        borderColor: '#00a6ff',
+        marginTop: 20,
+        borderRadius: 10,
+        borderWidth: 2 
+    },
     OvalShapeView: {
         marginTop: 20,
         width: 100,
@@ -372,6 +456,16 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         marginRight: 10,
         marginBottom: 20,  
+    },
+    friendImage: {
+        width: 90,
+        height: 90,
+        borderRadius:150,
+        resizeMode: 'contain',
+        marginLeft: 10,
+        marginRight: 10,
+        marginBottom: 20,
+        flex: 1
     },
     displayAsRow:{
         flexDirection: 'row',
@@ -473,5 +567,10 @@ const styles = StyleSheet.create({
     songsText:{
         fontSize:18,
         fontWeight:"400",
-    }     
+    },     
+    friendView:{
+        width:'100%',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+    } 
 });
