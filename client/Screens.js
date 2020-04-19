@@ -111,7 +111,7 @@ export const FriendProfile = ({route})=>(
     </View>
 )
 
-export const Songs =({navigation}) => {
+export const Songs =({route, navigation}) => {
     const [search, setSearch] = useState('')
 
     const data = songs.filter(song => (song.name.toLowerCase().includes(search.toLowerCase())) 
@@ -119,6 +119,10 @@ export const Songs =({navigation}) => {
 
     const updateSearch = (text) => {
         setSearch(text)
+    }
+
+    const queue = () => {
+        navigation.push('Details', trendingDiscos[route.params])
     }
 
     return(
@@ -136,7 +140,7 @@ export const Songs =({navigation}) => {
                     data.map((item, i)  => {
                         return(
                             <TouchableOpacity
-                                onPress ={()=> navigation.push('Details', trendingDiscos[0])}
+                                onPress ={queue}
                                 key={i}
                             >
                                 <View style = {styles.searchItem} key={i}>
@@ -158,10 +162,8 @@ export const Songs =({navigation}) => {
 };
 
 export const Details = ({route, navigation}) => {
-    const [search, setSearch] = useState('')
-
     const upVote = () => {
-
+        
     }
     
     return(    
@@ -169,7 +171,7 @@ export const Details = ({route, navigation}) => {
             <View style={styles.discoContainer}>
                 <TouchableOpacity
                     style={styles.queueButton}
-                    onPress ={()=> navigation.push('Songs')}
+                    onPress ={()=> navigation.push('Songs', route.params.ID)}
                 >
                     <Text style = {styles.queueText}>Queue a Song</Text>
                 </TouchableOpacity>
@@ -188,7 +190,7 @@ export const Details = ({route, navigation}) => {
                                             <Text style = {styles.artistText}>{route.params.songs[i].artist}</Text>
                                         </View>
                                         <Text style = {styles.songVotes}>{route.params.songs[i].votes}</Text>
-                                        <TouchableOpacity style = {styles.upvote}>
+                                        <TouchableOpacity style = {styles.upvote} onPress={upVote}>
                                         <Icon name="arrowup" size = {20} color="#3ae0d5"/>
                                         </TouchableOpacity>
                                     </View>
