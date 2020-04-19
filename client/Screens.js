@@ -1,14 +1,19 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Image, View, Text, StyleSheet, Button,TouchableOpacity} from 'react-native';
 // import Carousel from 'react-native-anchor-carousel';
-import {Dimensions, Grid, AsyncStorage, TextInput,ScrollView,FlatList, Platform} from 'react-native';
+import {Dimensions, Grid, AsyncStorage, TextInput, ScrollView,FlatList, Platform, Picker} from 'react-native';
 import Constants from 'expo-constants';
 import { AuthContext } from './context';
 import trendingDiscos from './data/trendingDiscos.json';
+import songs from './data/songs.json';
 import { bold } from 'colorette';
 import { processFontFamily } from 'expo-font';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/AntDesign';
+import { SearchBar } from 'react-native-elements';
+import { SearchableDropdown } from'react-native-searchable-dropdown'
+import { Autocomplete } from'react-native-autocomplete-input'
+
 const {width, height} = Dimensions.get("window"),
 vw = width / 100,
 vh = height / 100
@@ -85,36 +90,100 @@ export const Profile =(navigation) => {
         }} />
     </ScreenContainer>
     );
-    };
+};
 
-export const Details = ({route}) => (
-    
-    <ScreenContainer style = {styles.homeContainer}>
-        <Image source={{uri: trendingDiscos[0].songs[0].albumCover}}
-                                    style={styles.discoPageImage}
-                                />
-        <Text style = {styles.discoTitle}>{route.params.name}</Text>
-        <ScrollView>
+export const Songs =({navigation, search, setSearch}) => {
+
+    return(
+    <ScreenContainer>
+        <View>
+            <TextInput
+                style={{ height: 40, borderRadius: 20 , borderWidth: 1, color: '#FFFFFF', backgroundColor: 'rgba(100, 100, 100, 0.5)', marginBottom: 20, marginTop: 160}}
+                placeholderTextColor = "#000000"
+                onChangeText={text => updateSearch(text)}
+                placeholder="Search Song..."
+                textAlign= 'center'
+            />
+            <ScrollView >
                 {
-                    route.params.songs.map((item, i)  => {
+                    songs.map((item, i)  => {
                         return(
-                            <View style = {styles.songItem} key={i}>
-                                <View style = {styles.songText}>
-                                    <Text style = {styles.songName}>{route.params.songs[i].name}</Text>
-                                    <Text style = {styles.artistText}>{route.params.songs[i].artist}</Text>
-                                </View>
-                                <Text style = {styles.songVotes}>{route.params.songs[i].votes}</Text>
-                                <TouchableOpacity style = {styles.upvote}>
-                                <Icon name="arrowup" size = {20} color="#3ae0d5"/>
-                                </TouchableOpacity>
-                            </View>
-
+                            <TouchableOpacity
+                                style={styles.songsButton}
+                                onPress ={()=> navigation.push('Details', trendingDiscos[i])}
+                                key={i}
+                            >
+                                <Text style = {styles.songsText}>{item.song}</Text>
+                            </TouchableOpacity>
                         );
                     })
                 }
+
             </ScrollView>
+        </View>
     </ScreenContainer>
-)
+    );
+};
+
+export const Details = ({route, navigation}) => {
+    const [search, setSearch] = useState('')
+
+    const updateSearch = (e) => {
+        // setSearch({e})
+        navigation.push('Songs')
+    }
+
+    const upVote = () => {
+
+    }
+    
+    return(    
+        <ScreenContainer>
+            <View style={styles.discoContainer}>
+                {/* <SearchBar         
+                    placeholder="Search Song..."
+                    onChangeText={updateSearch}
+                    value={search}
+                    round
+                    style={styles.search}
+                    
+                /> */}
+                <TextInput
+                    style={{ height: 40, borderRadius: 20 , borderWidth: 1, color: '#FFFFFF', backgroundColor: 'rgba(100, 100, 100, 0.5)'}}
+                    placeholderTextColor = "#000000"
+                    onChangeText={text => updateSearch(text)}
+                    placeholder="Search Song..."
+                    textAlign= 'center'
+                    // inlineImageLeft='search_icon'
+                    
+                />
+                <Image source={{uri: trendingDiscos[0].songs[0].albumCover}}
+                    style={styles.discoPageImage}
+                />
+                <Text style = {styles.discoTitle}>{route.params.name}</Text>
+            </View>
+                <ScrollView>
+                        {
+                            route.params.songs.map((item, i)  => {
+                                return(
+                                    <View style = {styles.songItem} key={i}>
+                                        <View style = {styles.songText}>
+                                            <Text style = {styles.songName}>{route.params.songs[i].name}</Text>
+                                            <Text style = {styles.artistText}>{route.params.songs[i].artist}</Text>
+                                        </View>
+                                        <Text style = {styles.songVotes}>{route.params.songs[i].votes}</Text>
+                                        <TouchableOpacity style = {styles.upvote}>
+                                        <Icon name="arrowup" size = {20} color="#3ae0d5"/>
+                                        </TouchableOpacity>
+                                    </View>
+
+                                );
+                            })
+                        }
+                    </ScrollView>                
+        </ScreenContainer>
+    )
+}
 
 export const NewParty = () => (
     <ScreenContainer>
@@ -369,7 +438,7 @@ const styles = StyleSheet.create({
         width: 150,
         height: 150,
         alignSelf: "center",
-        marginTop:80,
+        marginTop:40,
         marginBottom: 30,
 
     },
@@ -383,5 +452,26 @@ const styles = StyleSheet.create({
         marginBottom: 30
 
     },
-      
+    discoContainer: {
+        marginLeft: 30,
+        marginRight: 30,
+        marginBottom: 20,
+        marginTop: 50,
+    },
+    songsButton:{
+        marginTop:30,
+        paddingTop:12,
+        paddingBottom:12,
+        paddingLeft:40,
+        paddingRight: 40,
+        alignItems: "center",
+        backgroundColor:'#3ae0d5',
+        borderRadius:18,
+        width:230,
+        height:50,
+    },
+    songsText:{
+        fontSize:18,
+        fontWeight:"400",
+    }     
 });

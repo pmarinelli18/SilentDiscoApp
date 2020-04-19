@@ -6,30 +6,28 @@
   "scripts": {
     "client": "cd client && expo start",
     "server": "nodemon server/server.js",
-    "dev": "concurrently \"npm run-script client\" \"nodemon server/server.js\" ", 
+    "dev": "concurrently \"npm run-script client\" \"nodemon server/server.js\" ",
     "build": "cd client && npm build",
     "start": "npm run-script dev"
   },
-"repository": {
-  "type": "git",
-  "url": "https://github.com/pmarinelli18/SilentDiscoApp"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pmarinelli18/SilentDiscoApp"
   },
-"dependencies": {
-  "nodemon": "^2.0.2",
-  "body-parser": "^1.19.0",
-  "dotenv": "^8.2.0",
-  "express": "^4.17.1",
-  "morgan": "^1.9.1",
-  "mongoose": "^5.7.1",
-  "jsonwebtoken": "^8.5.1",
-  "concurrently": "^4.1.0"
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "concurrently": "^4.1.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.7.1",
+    "morgan": "^1.9.1",
+    "nodemon": "^2.0.2",
+    "react-native-elements": "^1.2.7"
   },
   "rnpm": {
     "assets": [
-	"./assets/fonts/"
+      "./assets/fonts/"
     ]
   }
-
 }
-
-
