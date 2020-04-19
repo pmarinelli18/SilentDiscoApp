@@ -85,43 +85,19 @@ export const Splash =() => (
     </ScreenContainer>
 )
 
-export const Profile =(navigation) => {
-    const {signOut} = React.useContext(AuthContext);
-    return(
-    <ScreenContainer>
-        <Text>Profile Screen</Text>
-        <ScrollView horizontal = {true}>
-                {
-                    users.map((item, i)  => {
-                        return(
-                            <TouchableOpacity
-                                onPress ={()=> navigation.push('Details', trendingDiscos[i])}
-                                key={i}
-                            >
-                                <Image source={{uri: users[i].image}}
-                                    style={styles.discoImage}
+export const Profile =(navigation) => (
+    <ScreenContainer style = {styles.homeContainer}>
+        <Image source={{uri: users[0].image}}
+                                    style={styles.profileImage}
                                 />
-                            </TouchableOpacity>
-                        );
-                    })
+        <Text style = {styles.profileTitle}>{users[0].name}</Text>
+        <ScrollView>
+                {
+                    
                 }
             </ScrollView>
-        
-        <Button title ="Test Navigate"
-        onPress={()=> { 
-            navigation.navigate(
-            'Home', {
-            screen: 'Details',
-            params: {name: "steve"}
-            })
-        }}
-        />
-        <Button title ="Sign Out"
-        onPress={()=> { signOut()
-        }} />
     </ScreenContainer>
-    );
-    };
+)
 export const friendProfile = ({route})=>(
     <View>
 
@@ -334,9 +310,10 @@ const styles = StyleSheet.create({
     homeContainer: {
         marginLeft: 30,
         marginRight: 30,
-        marginBottom: 20,
+        marginTop: 80,
        
     },
+
     discoImage: {
         width: 120,
         height: 120,
@@ -355,6 +332,21 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         flex: 1
     },
+
+    profileImage:{
+            width: 120,
+            height: 120,
+            borderRadius:50,
+            resizeMode: 'contain',
+            alignSelf: "center",
+            flex: 1
+    },
+
+    followers:{
+        flexDirection: "row",
+        flexWrap: "wrap"
+    },
+    
     displayAsRow:{
         flexDirection: 'row',
     },
@@ -432,6 +424,17 @@ const styles = StyleSheet.create({
         color: '#3ae0d5',
         marginTop: 10,
         marginBottom: 30
+
+    },
+    profileTitle:{
+
+        //fontFamily: 'sans-serif-medium',
+        alignSelf:"center",
+        fontSize: 25,
+        color: '#3ae0d5',
+        marginTop: -160,
+        marginBottom: 30,
+        fontWeight: "bold"
 
     },
     friendView:{
