@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator} from '@react-navigation/stack'
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import {AuthContext} from './context'
+import {Button} from 'react-native';
 import {SignIn, LoginInfo, CreateAccount, Profile, Home, Details, FriendProfile, Splash, NewParty, Songs} from './Screens';
 
 import TabBarIcon from './components/TabBarIcon';
@@ -71,8 +72,7 @@ return {
     setIsLoading(false);
     setUserToken('asdf');
   }, 
-  signOut:
-  () => {
+  signOut:() => {
     setIsLoading(false);
     setUserToken(null);
   }, 
@@ -126,8 +126,10 @@ return {
                 
                 tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-person" />,
               }} 
-             />
+             >
+               </Tabs.Screen> 
           </Tabs.Navigator>
+          
         ): 
         (
         <AuthStack.Navigator>

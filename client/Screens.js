@@ -22,17 +22,27 @@ vh = height / 100
 const ScreenContainer = ({ children }) =>(
 <View style ={styles.container}>{children}</View>
 );
-//sadf
+
+const soundObject = new Audio.Sound();
+
+
+const leaveParty = async () => 
+{
+    await soundObject.pauseAsync();
+}
+//https://docs.expo.io/versions/latest/sdk/audio/?redirected
 const  goToDisco =async (navigation, i) =>
 {
-    Audio.requestPermissionsAsync()
-    const soundObject = new Audio.Sound();
     try {
-      await soundObject.loadAsync(require('./assets/songs/goodtimesroll.mp3'));
-      await soundObject.playAsync();
-      // Your sound is playing!
+    await soundObject.loadAsync(require('./assets/songs/goodtimesroll.mp3'));
     } catch (error) {
-      // An error occurred!
+        console.log("song no find");
+    }
+    try {
+      await soundObject.playAsync();
+      // sound work
+    } catch (error) {
+      console.log("sound no work");
     }
 
     navigation.push('Details', trendingDiscos[i])
@@ -97,6 +107,11 @@ export const Home =({ navigation }) => (
                 </View>
             </View>
         </ScrollView>
+        <View style = {{backgroundColor : "white"}}>
+        <TouchableOpacity onPress ={()=> leaveParty()}> 
+            <Text style = {{alignSelf : "center"}}>Leave Party</Text>
+        </TouchableOpacity>
+        </View>
     </ScreenContainer>
 )
 export const Splash =() => (
