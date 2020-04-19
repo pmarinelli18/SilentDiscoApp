@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {Image, View, Text, StyleSheet, Button,TouchableOpacity} from 'react-native';
+import React, {useState, useCallback, forceUpdate} from 'react';
+import {Image, View, Text, StyleSheet, Button,TouchableOpacity, RefreshControl} from 'react-native';
 // import Carousel from 'react-native-anchor-carousel';
 import {Dimensions, Grid, AsyncStorage, TextInput, ScrollView,FlatList, Platform, Picker} from 'react-native';
 import Constants from 'expo-constants';
@@ -15,6 +15,9 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import { SearchBar } from 'react-native-elements';
 import { SearchableDropdown } from'react-native-searchable-dropdown'
 import { Autocomplete } from'react-native-autocomplete-input'
+import { reload } from 'expo/build/Updates/Updates';
+import { ReloadInstructions } from 'react-native/Libraries/NewAppScreen';
+import { Updates } from 'expo';
 
 const {width, height} = Dimensions.get("window"),
 vw = width / 100,
@@ -26,94 +29,100 @@ const ScreenContainer = ({ children }) =>(
 const soundObject = new Audio.Sound();
 
 
-const leaveParty = async () => 
-{
-    await soundObject.pauseAsync();
-}
-//https://docs.expo.io/versions/latest/sdk/audio/?redirected
-const  goToDisco =async (navigation, i) =>
-{
-    try {
-    await soundObject.loadAsync(require('./assets/songs/goodtimesroll.mp3'));
-    } catch (error) {
-        console.log("song no find");
-    }
-    try {
-      await soundObject.playAsync();
-      // sound work
-    } catch (error) {
-      console.log("sound no work");
-    }
 
-    navigation.push('Details', trendingDiscos[i])
-}
-
-export const Home =({ navigation }) => (
+export const Home =({ navigation }) => {
+    const [discos, setDiscos] = useState(trendingDiscos)
+    const [test, setTest] = useState(1)
+    const leaveParty = async () => 
+    {
+        await soundObject.pauseAsync();
+    }
+    const  goToDisco =async (navigation, i) =>
+    {
+        try {
+        await soundObject.loadAsync(require('./assets/songs/goodtimesroll.mp3'));
+        } catch (error) {
+            console.log("song no find");
+        }
+        try {
+          await soundObject.playAsync();
+          // sound work
+        } catch (error) {
+          console.log("sound no work");
+        }
     
-    <ScreenContainer style = {styles.container}>
-        <ScrollView>
-            <View style={styles.homeContainer}> 
-                <Text style = {styles.topHeader}>Explore More</Text>
-                <Text style = {styles.subHeader1}>Trending</Text>
-                <ScrollView horizontal = {true}>
-                    {
-                        trendingDiscos.map((item, i)  => {
-                            return(
-                                <TouchableOpacity
-                                    onPress ={()=> goToDisco(navigation, i)}
-                                    key={i}
-                                >
-                                    <Image source={{uri: trendingDiscos[i].songs[0].albumCover}}
-                                        style={styles.discoImage}
-                                    />
-                                </TouchableOpacity>
-                            );
-                        })
-                    }
-                </ScrollView>
-                <Text style = {styles.subHeader1}>Nearby Discos</Text>
-                <ScrollView horizontal = {true}>
-                    {
-                        trendingDiscos.map((item, i)  => {
-                            return(
-                                <TouchableOpacity
-                                    onPress ={()=> goToDisco(navigation, i)}
-                                    key={i}
-                                >
-                                    <Image source={{uri: trendingDiscos[i].songs[0].albumCover}}
-                                        style={styles.discoImage}
-                                    />
-                                </TouchableOpacity>
-                            );
-                        })
-                    }
-                </ScrollView>
-                <Text style = {styles.topHeader}>Friends</Text>
-                <View style = {styles.friendView}>
-                    {
-                        users.map((item, i)  => {
-                            return(
-                                <TouchableOpacity
-                                    onPress ={()=> navigation.push('FriendProfile', users[i])}
-                                    key={i}
-                                >
-                                    <Image source={{uri: users[i].image}}
-                                        style={styles.friendImage}
-                                    />
-                                </TouchableOpacity>
-                            );
-                        })
-                    }
+        
+        navigation.push('Details', {currentDisco: discos[i], discos: discos, setDiscos, setDiscos})
+    }
+
+    //https://docs.expo.io/versions/latest/sdk/audio/?redirected
+    
+    return(
+        <ScreenContainer style = {styles.container}>
+            <ScrollView>
+                <View style={styles.homeContainer}> 
+                    <Text style = {styles.topHeader}>Explore More</Text>
+                    <Text style = {styles.subHeader1}>Trending</Text>
+                    <ScrollView horizontal = {true}>
+                        {
+                            trendingDiscos.map((item, i)  => {
+                                return(
+                                    <TouchableOpacity
+                                        onPress ={()=> goToDisco(navigation, i)}
+                                        key={i}
+                                    >
+                                        <Image source={{uri: trendingDiscos[i].songs[0].albumCover}}
+                                            style={styles.discoImage}
+                                        />
+                                    </TouchableOpacity>
+                                );
+                            })
+                        }
+                    </ScrollView>
+                    <Text style = {styles.subHeader1}>Nearby Discos</Text>
+                    <ScrollView horizontal = {true}>
+                        {
+                            trendingDiscos.map((item, i)  => {
+                                return(
+                                    <TouchableOpacity
+                                        onPress ={()=> goToDisco(navigation, i)}
+                                        key={i}
+                                    >
+                                        <Image source={{uri: trendingDiscos[i].songs[0].albumCover}}
+                                            style={styles.discoImage}
+                                        />
+                                    </TouchableOpacity>
+                                );
+                            })
+                        }
+                    </ScrollView>
+                    <Text style = {styles.topHeader}>Friends</Text>
+                    <View style = {styles.friendView}>
+                        {
+                            users.map((item, i)  => {
+                                return(
+                                    <TouchableOpacity
+                                        onPress ={()=> navigation.push('FriendProfile', users[i])}
+                                        key={i}
+                                    >
+                                        <Image source={{uri: users[i].image}}
+                                            style={styles.friendImage}
+                                        />
+                                    </TouchableOpacity>
+                                );
+                            })
+                        }
+                    </View>
                 </View>
+            </ScrollView>
+            <View style = {{backgroundColor : "white"}}>
+            <TouchableOpacity onPress ={()=> leaveParty()}> 
+                <Text style = {{alignSelf : "center"}}>Leave Party</Text>
+            </TouchableOpacity>
             </View>
-        </ScrollView>
-        <View style = {{backgroundColor : "white"}}>
-        <TouchableOpacity onPress ={()=> leaveParty()}> 
-            <Text style = {{alignSelf : "center"}}>Leave Party</Text>
-        </TouchableOpacity>
-        </View>
-    </ScreenContainer>
-)
+        </ScreenContainer>
+    )
+}
 export const Splash =() => (
     <ScreenContainer>
         <Text>Loading</Text>
@@ -192,8 +201,27 @@ export const Songs =({route, navigation}) => {
 };
 
 export const Details = ({route, navigation}) => {
-    const upVote = () => {
-        
+    // navigation.setOptions(route.params.test = 3)
+    // route.params.setTest(2)
+    // console.log(route.params.test)
+    // const [, setTick] = useState(0);
+    // const update = useCallback(() => {
+    //   setTick(tick => tick + 1);
+    // }, [])
+
+    const upVote = (index) => {
+        let thisDsico = route.params.currentDisco
+        let newSongList = thisDsico.songs
+        let newVotes = newSongList[index].votes + 1
+        newSongList[index].votes = newVotes
+        console.log(thisDsico.songs)
+        route.params.currentDisco = thisDsico
+        Details.forceUpdate({route, navigation})
+        // update
+        // for(let i = 0; i < newSongList.length; i++){
+        //     if (i == )
+        // }
+
     }
     
     return(    
@@ -201,26 +229,26 @@ export const Details = ({route, navigation}) => {
             <View style={styles.discoContainer}>
                 <TouchableOpacity
                     style={styles.queueButton}
-                    onPress ={()=> navigation.push('Songs', route.params.ID)}
+                    onPress ={()=> navigation.push('Songs', route.params.currentDisco.ID)}
                 >
                     <Text style = {styles.queueText}>Queue a Song</Text>
                 </TouchableOpacity>
                 <Image source={{uri: trendingDiscos[0].songs[0].albumCover}}
                     style={styles.discoPageImage}
                 />
-                <Text style = {styles.discoTitle}>{route.params.name}</Text>
+                <Text style = {styles.discoTitle}>{route.params.currentDisco.name}</Text>
             </View>
                 <ScrollView>
                         {
-                            route.params.songs.map((item, i)  => {
+                            route.params.currentDisco.songs.map((item, i)  => {
                                 return(
                                     <View style = {styles.songItem} key={i}>
                                         <View style = {styles.songText}>
-                                            <Text style = {styles.songName}>{route.params.songs[i].name}</Text>
-                                            <Text style = {styles.artistText}>{route.params.songs[i].artist}</Text>
+                                            <Text style = {styles.songName}>{item.name}</Text>
+                                            <Text style = {styles.artistText}>{item.artist}</Text>
                                         </View>
-                                        <Text style = {styles.songVotes}>{route.params.songs[i].votes}</Text>
-                                        <TouchableOpacity style = {styles.upvote} onPress={upVote}>
+                                        <Text style = {styles.songVotes}>{item.votes}</Text>
+                                        <TouchableOpacity style = {styles.upvote} onPress={()=>upVote(i)}>
                                         <Icon name="arrowup" size = {20} color="#3ae0d5"/>
                                         </TouchableOpacity>
                                     </View>
