@@ -12,9 +12,10 @@ import { processFontFamily } from 'expo-font';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Audio } from 'expo-av';
 import Icon from 'react-native-vector-icons/AntDesign';
-import { SearchBar } from 'react-native-elements';
+import { SearchBar,Overlay } from 'react-native-elements';
 import { SearchableDropdown } from'react-native-searchable-dropdown'
 import { Autocomplete } from'react-native-autocomplete-input'
+import Collapsible from 'react-native-collapsible';
 
 const {width, height} = Dimensions.get("window"),
 vw = width / 100,
@@ -206,12 +207,20 @@ export const Songs =({route, navigation}) => {
 };
 
 export const Details = ({route, navigation}) => {
+    const [search, setSearch] = useState('')
+    
     const upVote = () => {
         
     }
-    
+    const [collapseUsers, setCollapseUsers] = useState(false)
+    const updateCollapse = () => {
+        setCollapseUsers(!collapseUsers)
+    }
+
+
     return(    
         <ScreenContainer>
+        <View style = {styles.behind}>
             <View style={styles.discoContainer}>
                 <TouchableOpacity
                     style={styles.queueButton}
@@ -224,7 +233,7 @@ export const Details = ({route, navigation}) => {
                 />
                 <Text style = {styles.discoTitle}>{route.params.name}</Text>
             </View>
-                <ScrollView>
+                <ScrollView style = {styles.songList}>
                         {
                             route.params.songs.map((item, i)  => {
                                 return(
@@ -242,7 +251,30 @@ export const Details = ({route, navigation}) => {
                                 );
                             })
                         }
-                    </ScrollView>                
+                    </ScrollView>
+            </View>
+            
+            <View stlye = {styles.front}>
+                <TouchableOpacity onPress = {()=>updateCollapse()} style = {styles.toggleCollapse}>
+                    <Text >Contributers</Text>
+                </TouchableOpacity>
+                <Collapsible collapsed = {collapseUsers}>
+                <View style = {styles.friendList}>
+                <ScrollView style = {styles.contributorList}>
+                        {
+                            route.params.songs.map((item, i)  => {
+                                return( 
+                                <Text style = {styles.contributorName} key={i}>{route.params.users[i]}</Text>
+                                );
+                            })
+                        }
+                    </ScrollView>
+                </View>
+                </Collapsible>
+            </View>
+                         
+                    
+                                   
         </ScreenContainer>
     )
 }
@@ -512,7 +544,7 @@ const styles = StyleSheet.create({
         height: 60,
         alignSelf: 'center',
         alignContent: 'space-between',
-        width: '90%',
+        width: '100%',
         marginLeft:10,
         marginRight: 10,
         
@@ -674,7 +706,79 @@ const styles = StyleSheet.create({
     },
     friendView:{
         width:'100%',
+        flex: 1,
         flexDirection: 'row',
         flexWrap: 'wrap',
-    } 
+    },
+    toggleCollapse:{
+        width: 250,
+        height: 0,
+        borderBottomColor: "#00BCD4",
+        borderBottomWidth: 28,
+        borderLeftWidth: 15,
+        borderRightWidth: 15,
+        borderTopEndRadius:15,
+        borderRightColor: 'transparent',
+        borderLeftColor: 'transparent',
+        flex:1,
+        marginTop:"175%",
+        alignItems: 'center',
+        alignSelf:'center'
+    },
+    
+    songList:{
+        width:"100%"
+    },
+    bottomOverlay:{
+        position: 'absolute',
+            right: 10,
+            top: 40,
+            flexDirection: "row",
+            height: 60,
+            alignItems: "center",
+            padding: 10
+    },
+    behind:{
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'absolute',
+        left: 0,
+        top: 0,
+        width: '100%',
+        height: '100%'
+        
+    },
+    front:{
+        
+        flexDirection:'column',
+        width: '100%',
+        height: '100%',
+        
+    },
+    friendList:{
+        height: 200,
+        width:250,
+        flex: 1,
+        alignSelf: 'center',
+        alignItems: 'center',
+        backgroundColor: "#00BCD4"
+    },
+    contributorList:{
+        width: '100%'
+    },
+    contributorName:{
+        borderRadius: 15,
+        alignItems:'center',
+        fontSize: 15,
+        fontWeight: 'bold',
+        marginTop: 5,
+        marginLeft: 20,
+        marginRight: 20,
+        color: '#000',
+        height: 30,
+        backgroundColor: '#00a6ff',
+        paddingLeft: 15,
+        paddingTop: 5
+    }
+
 });
