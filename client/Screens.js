@@ -14,6 +14,7 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import { SearchBar } from 'react-native-elements';
 import { SearchableDropdown } from'react-native-searchable-dropdown'
 import { Autocomplete } from'react-native-autocomplete-input'
+import Collapsible from 'react-native-collapsible';
 
 const {width, height} = Dimensions.get("window"),
 vw = width / 100,
@@ -159,11 +160,16 @@ export const Songs =({navigation}) => {
 
 export const Details = ({route, navigation}) => {
     const [search, setSearch] = useState('')
-
+    
     const upVote = () => {
 
     }
-    
+    const [collapseUsers] = useState(false)
+    const updateCollapse = () => {
+        collapseUsers(!collapseUsers)
+    }
+
+
     return(    
         <ScreenContainer>
             <View style={styles.discoContainer}>
@@ -196,7 +202,15 @@ export const Details = ({route, navigation}) => {
                                 );
                             })
                         }
-                    </ScrollView>                
+                    </ScrollView>
+                    <TouchableOpacity onPress = {()=>updateCollapse()} style = {styles.toggleCollapse}>
+                        <Text> Pull up</Text>
+                    </TouchableOpacity>
+                    <Collapsible collapsed = {collapseUsers}>
+                    <View style = {styles.friendList}>
+                        <Text>users</Text>
+                    </View>
+                    </Collapsible>                
         </ScreenContainer>
     )
 }
@@ -630,5 +644,15 @@ const styles = StyleSheet.create({
         width:'100%',
         flexDirection: 'row',
         flexWrap: 'wrap',
-    } 
+    },
+    toggleCollapse:{
+        height: 25,
+        width:"100%",
+        backgroundColor: "#FFF"
+    },
+    friendList:{
+        height: 25,
+        width:"100%",
+        backgroundColor: "#AAA"
+    }
 });
