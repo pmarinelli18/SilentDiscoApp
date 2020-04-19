@@ -1,11 +1,12 @@
-import React from 'react';
+
+import React, {useState} from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native'
-import { createStackNavigator} from '@react-navigation/stack'
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
-import {AuthContext} from './context'
-import {Button} from 'react-native';
-import {SignIn, LoginInfo, CreateAccount, Profile, Home, Details, FriendProfile, Splash, NewParty, Songs} from './Screens';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator} from '@react-navigation/stack';
+import { createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import { AuthContext} from './context';
+import { Button} from 'react-native';
+import { SignIn, LoginInfo, CreateAccount, Profile, Home, Details, FriendProfile, Splash, NewParty, Songs} from './Screens';
 
 import TabBarIcon from './components/TabBarIcon';
 const AuthStack = createStackNavigator();
@@ -13,7 +14,7 @@ const Tabs = createBottomTabNavigator();
 const HomeStack = createStackNavigator();
 const ProfileStack = createStackNavigator();
 
-const HomeStackScreen = () => (
+const HomeStackScreen = (props) => (
   <HomeStack.Navigator> 
     <HomeStack.Screen options={{headerShown: false}} name= 'Home' component ={Home}/>
     <HomeStack.Screen name = 'Details' component ={Details}
@@ -60,7 +61,7 @@ const TabsScreen = () => (
 
 export default() => {
   const [isLoading, setIsLoading] = React.useState(true);
-  const [userToken, setUserToken] = React.useState(null)
+  const [userToken, setUserToken] = React.useState(null);
 
   const authContext = React.useMemo(() => {
 return {
@@ -103,9 +104,8 @@ return {
             <Tabs.Screen 
               name = "Home" 
               component = {HomeStackScreen}
-              
               options={
-              {
+              {  
                 
                 tabBarIcon: ({ focused, color }) => <TabBarIcon focused={focused} name="md-home" color={color}/>,
               }

@@ -26,12 +26,13 @@ const ScreenContainer = ({ children }) =>(
 const soundObject = new Audio.Sound();
 
 
-const leaveParty = async () => 
+const leaveParty = async (setInParty) => 
 {
+    setInParty(false);
     await soundObject.pauseAsync();
 }
 //https://docs.expo.io/versions/latest/sdk/audio/?redirected
-const  goToDisco =async (navigation, i) =>
+const  goToDisco =async (navigation, i, inParty, setInParty) =>
 {
     try {
     await soundObject.loadAsync(require('./assets/songs/goodtimesroll.mp3'));
@@ -44,12 +45,24 @@ const  goToDisco =async (navigation, i) =>
     } catch (error) {
       console.log("sound no work");
     }
-
+    setInParty(true);
     navigation.push('Details', trendingDiscos[i])
 }
 
-export const Home =({ navigation }) => (
-    
+export const AudioPlayer = (props) => (
+    <View style = {{backgroundColor : "white"}}>
+        <TouchableOpacity onPress ={()=> leaveParty(props.setInParty)}> 
+            <Text style = {{alignSelf : "center"}}>Leave Party</Text>
+        </TouchableOpacity>
+        </View>
+)
+
+export const Home =({ navigation }) => {
+    const [inParty, setInParty] = useState(false);
+    const updateInParty = (value) => {
+    setInParty(value);
+    }
+    return (
     <ScreenContainer style = {styles.container}>
         <ScrollView>
             <View style={styles.homeContainer}> 
@@ -60,7 +73,7 @@ export const Home =({ navigation }) => (
                         trendingDiscos.map((item, i)  => {
                             return(
                                 <TouchableOpacity
-                                    onPress ={()=> goToDisco(navigation, i)}
+                                    onPress ={()=> goToDisco(navigation, i, inParty, updateInParty)}
                                     key={i}
                                 >
                                     <Image source={{uri: trendingDiscos[i].songs[0].albumCover}}
@@ -107,13 +120,14 @@ export const Home =({ navigation }) => (
                 </View>
             </View>
         </ScrollView>
-        <View style = {{backgroundColor : "white"}}>
-        <TouchableOpacity onPress ={()=> leaveParty()}> 
-            <Text style = {{alignSelf : "center"}}>Leave Party</Text>
-        </TouchableOpacity>
-        </View>
+        {
+        inParty?
+        <AudioPlayer setInParty = {setInParty} inParty = {inParty} />
+        :null
+        }
     </ScreenContainer>
 )
+}
 export const Splash =() => (
     <ScreenContainer>
         <Text>Loading</Text>
