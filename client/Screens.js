@@ -191,6 +191,56 @@ export const Songs =({route, navigation}) => {
     </ScreenContainer>
     );
 };
+export const AddSongs =({route, navigation}) => {
+    const [search, setSearch] = useState('')
+
+    const data = songs.filter(song => (song.name.toLowerCase().includes(search.toLowerCase())) 
+                                        || (song.artist.toLowerCase().includes(search.toLowerCase())))
+
+    const updateSearch = (text) => {
+        setSearch(text)
+    }
+
+    const queue = () => {
+        navigation.push('NewParty',route.params)
+    }
+
+    return(
+    <ScreenContainer>
+        <View style={styles.songsContainer}>
+            <TextInput
+                style={{ height: 40, borderColor: '#00a6ff',borderRadius: 20 , borderWidth: 1, color: '#FFFFFF', backgroundColor: 'rgba(100, 100, 100, 0.5)', marginTop: 60}}
+                placeholderTextColor = "#00a6ff"
+                onChangeText={text => updateSearch(text)}
+                placeholder="Search Song..."
+                textAlign= 'center'
+            />
+            <ScrollView >
+                {
+                    data.map((item, i)  => {
+                        return(
+                            <TouchableOpacity
+                                onPress ={queue}
+                                key={i}
+                            >
+                                <View style = {styles.searchItem} key={i}>
+                                    <View style = {styles.songText}>
+                                        <Text style = {styles.searchSongName}>{item.name}</Text>
+                                        <Text style = {styles.searchArtistText}>{item.artist}</Text>
+                                    </View>
+                                    <Image style={styles.searchAlbumCover}source={{uri: item.albumCover}}/>
+                                </View>
+                            </TouchableOpacity>
+                );
+                    })
+                }
+
+            </ScrollView>
+        </View>
+    </ScreenContainer>
+    );
+};
+
 
 export const Details = ({route, navigation}) => {
     const [search, setSearch] = useState('')
@@ -198,7 +248,7 @@ export const Details = ({route, navigation}) => {
     const upVote = () => {
         
     }
-    const [collapseUsers, setCollapseUsers] = useState(false)
+    const [collapseUsers, setCollapseUsers] = useState(true)
     const updateCollapse = () => {
         setCollapseUsers(!collapseUsers)
     }
@@ -248,7 +298,7 @@ export const Details = ({route, navigation}) => {
                 <View style = {styles.friendList}>
                 <ScrollView style = {styles.contributorList}>
                         {
-                            route.params.songs.map((item, i)  => {
+                            route.params.users.map((item, i)  => {
                                 return( 
                                 <Text style = {styles.contributorName} key={i}>{route.params.users[i]}</Text>
                                 );
@@ -265,11 +315,68 @@ export const Details = ({route, navigation}) => {
     )
 }
 
-export const NewParty = () => (
+export const NewParty = ({route, navigation}) => {
+        
+    const [disconame,setName] = useState(route.params)
+        
+    const updateName = (text) => {
+            setName(text)
+        }
+    
+    const [collapseUsers, setCollapseUsers] = useState(true)
+    
+    const updateCollapse = () => {
+        setCollapseUsers(!collapseUsers)
+    }
+    const[contributors, setContributors] = useState(['anthony'])
+    
+    const updateContributors = (text) =>{
+        setContributors(contributors + [text])
+    }
+
+    return(
     <ScreenContainer>
-        <Text>NewParty</Text>
+        <View style = {styles.behind}>
+            <View style = {styles.discoContainer}>
+                <TextInput style ={styles.newDiscoName}
+                value = {disconame}
+                onChangeText = {text=>updateName(text)}
+                />
+                <TouchableOpacity
+                    style={styles.queueButton}
+                    onPress ={()=> navigation.push('AddSongs', disconame)}
+                >
+                    <Text style = {styles.queueText}>Queue a Song</Text>
+                </TouchableOpacity>
+            </View>
+        </View>
+        
+        <View stlye = {styles.front}>
+                <TouchableOpacity onPress = {()=>updateCollapse()} style = {styles.toggleCollapse}>
+                    <Text >Contributers</Text>
+                </TouchableOpacity>
+                <Collapsible collapsed = {collapseUsers}>
+                <View style = {styles.friendList}>
+                <ScrollView style = {styles.contributorList}>
+                        {
+                            contributors.map((item, i)  => {
+                                return( 
+                                <Text style = {styles.contributorName} key={i}>{contributors[i]}</Text>
+                                );
+                            })
+                        }
+                        <TouchableOpacity>
+                        <Text style = {styles.contributorName}>Add Contributer</Text>
+                        </TouchableOpacity>
+                    </ScrollView>
+                </View>
+                </Collapsible>
+            </View>
     </ScreenContainer>
-)
+    )
+    
+    
+}
 
 const getLogin = async () => {
     const response = await fetch(`/login`, {
@@ -369,7 +476,7 @@ const styles = StyleSheet.create({
         flex: 1, 
         backgroundColor: '#09090a',
         justifyContent: 'center',
-        alignContent: 'center'
+        //alignContent: 'center'
     },
     button: {
  
@@ -395,6 +502,7 @@ const styles = StyleSheet.create({
         paddingLeft:40,
         paddingRight: 40,
         alignItems: "center",
+        alignSelf: 'center',
         backgroundColor:'#00a6ff',
         borderRadius:18,
         width:230,
@@ -426,7 +534,8 @@ const styles = StyleSheet.create({
         borderColor: '#00a6ff',
         marginTop: 20,
         borderRadius: 10,
-        borderWidth: 2 
+        borderWidth: 2,
+        paddingLeft: 10
     },
     OvalShapeView: {
         marginTop: 20,
@@ -594,7 +703,7 @@ const styles = StyleSheet.create({
     discoTitle:{
 
         //fontFamily: 'sans-serif-medium',
-        alignSelf:"center",
+        //alignSelf:"center",
         fontSize: 40,
         color: '#3ae0d5',
         marginTop: 10,
@@ -713,7 +822,8 @@ const styles = StyleSheet.create({
     },
     
     songList:{
-        width:"100%"
+        width:"100%",
+        height: "30%"
     },
     bottomOverlay:{
         position: 'absolute',
@@ -726,7 +836,7 @@ const styles = StyleSheet.create({
     },
     behind:{
         alignItems: 'center',
-        justifyContent: 'center',
+        //justifyContent: 'center',
         position: 'absolute',
         left: 0,
         top: 0,
@@ -744,13 +854,15 @@ const styles = StyleSheet.create({
     friendList:{
         height: 200,
         width:250,
-        flex: 1,
+        flex: 2,
         alignSelf: 'center',
         alignItems: 'center',
         backgroundColor: "#00BCD4"
     },
     contributorList:{
-        width: '100%'
+        width: '100%',
+        height: 100,
+        alignSelf: "flex-start"
     },
     contributorName:{
         borderRadius: 15,
@@ -765,6 +877,18 @@ const styles = StyleSheet.create({
         backgroundColor: '#00a6ff',
         paddingLeft: 15,
         paddingTop: 5
+    },
+    newDiscoName:{
+        fontSize: 25,
+        letterSpacing: 8,
+        marginTop: 80,
+        width: 300,
+        textAlign: 'center',
+        alignSelf: 'flex-start',
+        color: 'white',
+        borderColor: "grey",
+        borderWidth: 1,
+        
     }
 
 });
