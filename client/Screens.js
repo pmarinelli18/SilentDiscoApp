@@ -9,6 +9,7 @@ import trendingDiscos from './data/trendingDiscos.json';
 import { bold } from 'colorette';
 import { processFontFamily } from 'expo-font';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { Audio } from 'expo-av';
 import Icon from 'react-native-vector-icons/AntDesign';
 const {width, height} = Dimensions.get("window"),
 vw = width / 100,
@@ -16,7 +17,21 @@ vh = height / 100
 const ScreenContainer = ({ children }) =>(
 <View style ={styles.container}>{children}</View>
 );
+//sadf
+const  goToDisco =async (navigation, i) =>
+{
+    Audio.requestPermissionsAsync()
+    const soundObject = new Audio.Sound();
+    try {
+      await soundObject.loadAsync(require('./assets/goodtimesroll.mp3'));
+      await soundObject.playAsync();
+      // Your sound is playing!
+    } catch (error) {
+      // An error occurred!
+    }
 
+    navigation.push('Details', trendingDiscos[i])
+}
 
 export const Home =({ navigation }) => (
     
@@ -30,7 +45,7 @@ export const Home =({ navigation }) => (
                         trendingDiscos.map((item, i)  => {
                             return(
                                 <TouchableOpacity
-                                    onPress ={()=> navigation.push('Details', trendingDiscos[i])}
+                                    onPress ={()=> goToDisco(navigation, i)}
                                     key={i}
                                 >
                                     <Image source={{uri: trendingDiscos[i].songs[0].albumCover}}

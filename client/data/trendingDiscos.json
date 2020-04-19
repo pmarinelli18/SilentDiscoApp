@@ -7,57 +7,37 @@
                 "name" : "Good Times Roll",
                 "artist" : "Griz",
                 "albumCover" : "https://upload.wikimedia.org/wikipedia/en/a/ac/GRiZ-Good-Will-Prevail.png",
+                "song" : "../assets/songs/goodtimesroll.mp3",
+                "votes" : 0
+            },
+            {
+                "name" : "Flava",
+                "artist" : "Griz",
+                "albumCover" : "https://upload.wikimedia.org/wikipedia/en/a/ac/GRiZ-Good-Will-Prevail.png",
+                "song" : "../assets/songs/flava.mp3",
+                "votes" : 0
+            },
+            {
+                "name" : "I Don't Want To Wait",
+                "artist" : "Griz",
+                "albumCover" : "https://upload.wikimedia.org/wikipedia/en/a/ac/GRiZ-Good-Will-Prevail.png",
+                "song": "../assets/songs/idontwanttowait.mp3",
+                "votes" : 0
+            },
+            {
+                "name" : "The Sound of Silence",
+                "artist" : "Griz",
+                "albumCover" : "https://upload.wikimedia.org/wikipedia/en/a/ac/GRiZ-Good-Will-Prevail.png",
+                "song" : "../assets/songs/thesoundofsilence.mp3",
                 "votes" : 0
             },
             {
                 "name" : "Good Times Roll",
                 "artist" : "Griz",
                 "albumCover" : "https://upload.wikimedia.org/wikipedia/en/a/ac/GRiZ-Good-Will-Prevail.png",
-                "votes" : 0
-            },
-            {
-                "name" : "Good Times Roll",
-                "artist" : "Griz",
-                "albumCover" : "https://upload.wikimedia.org/wikipedia/en/a/ac/GRiZ-Good-Will-Prevail.png",
-                "votes" : 0
-            },
-            {
-                "name" : "Good Times Roll",
-                "artist" : "Griz",
-                "albumCover" : "https://upload.wikimedia.org/wikipedia/en/a/ac/GRiZ-Good-Will-Prevail.png",
-                "votes" : 0
-            },
-            {
-                "name" : "Good Times Roll",
-                "artist" : "Griz",
-                "albumCover" : "https://upload.wikimedia.org/wikipedia/en/a/ac/GRiZ-Good-Will-Prevail.png",
-                "votes" : 0
-            },
-            {
-                "name" : "Good Times Roll",
-                "artist" : "Griz",
-                "albumCover" : "https://upload.wikimedia.org/wikipedia/en/a/ac/GRiZ-Good-Will-Prevail.png",
-                "votes" : 0
-            },
-            {
-                "name" : "Good Times Roll",
-                "artist" : "Griz",
-                "albumCover" : "https://upload.wikimedia.org/wikipedia/en/a/ac/GRiZ-Good-Will-Prevail.png",
-                "votes" : 0
-            },
-            {
-                "name" : "Good Times Roll",
-                "artist" : "Griz",
-                "albumCover" : "https://upload.wikimedia.org/wikipedia/en/a/ac/GRiZ-Good-Will-Prevail.png",
-                "votes" : 0
-            },
-            {
-                "name" : "Good Times Roll",
-                "artist" : "Griz",
-                "albumCover" : "https://upload.wikimedia.org/wikipedia/en/a/ac/GRiZ-Good-Will-Prevail.png",
+                "song" : "../assets/songs/goodtimesroll.mp3",
                 "votes" : 0
             }
-
         ],
         "users" : [
             "Eric",
