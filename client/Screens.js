@@ -208,15 +208,15 @@ export const Details = ({route, navigation}) => {
             
             <View stlye = {styles.front}>
                 <TouchableOpacity onPress = {()=>updateCollapse()} style = {styles.toggleCollapse}>
-                    <Text>Contributers</Text>
+                    <Text >Contributers</Text>
                 </TouchableOpacity>
                 <Collapsible collapsed = {collapseUsers}>
                 <View style = {styles.friendList}>
-                <ScrollView>
+                <ScrollView style = {styles.contributorList}>
                         {
                             route.params.songs.map((item, i)  => {
                                 return( 
-                                <Text style = {{textAlign: 'center'}} key={i}>{route.params.users[i]}</Text>
+                                <Text style = {styles.contributorName} key={i}>{route.params.users[i]}</Text>
                                 );
                             })
                         }
@@ -677,14 +677,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         alignSelf:'center'
     },
-    friendList:{
-        height: 200,
-        width:250,
-        flex: 1,
-        alignSelf: 'center',
-        alignItems: 'center',
-        backgroundColor: "#AAA"
-    },
+    
     songList:{
         width:"100%"
     },
@@ -713,6 +706,31 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         
+    },
+    friendList:{
+        height: 200,
+        width:250,
+        flex: 1,
+        alignSelf: 'center',
+        alignItems: 'center',
+        backgroundColor: "#00BCD4"
+    },
+    contributorList:{
+        width: '100%'
+    },
+    contributorName:{
+        borderRadius: 15,
+        alignItems:'center',
+        fontSize: 15,
+        fontWeight: 'bold',
+        marginTop: 5,
+        marginLeft: 20,
+        marginRight: 20,
+        color: '#000',
+        height: 30,
+        backgroundColor: '#00a6ff',
+        paddingLeft: 15,
+        paddingTop: 5
     }
 
 });
