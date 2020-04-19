@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator} from '@react-navigation/stack'
@@ -13,26 +13,29 @@ const Tabs = createBottomTabNavigator();
 const HomeStack = createStackNavigator();
 const ProfileStack = createStackNavigator();
 
-const HomeStackScreen = () => (
+
+
+const HomeStackScreen = (props) => (
   <HomeStack.Navigator> 
-    <HomeStack.Screen options={{headerShown: false}} name= 'Home' component ={Home}/>
+    <HomeStack.Screen 
+      options={{headerShown: false}} 
+      name= 'Home' 
+      component = {() => <Home inParty ={props.inParty} setInParty = {props.setInParty}/>}
+    />
     <HomeStack.Screen name = 'Details' component ={Details}
     options =
     {{headerShown: false}}
     //, ({ route }) => ({title: route.params.name})}
-    
     />
     <HomeStack.Screen name= 'Songs' component ={Songs} 
       options =
       {{headerShown: false}}
       //, ({ route }) => ({title: route.params.name})}
-    
     />
     <HomeStack.Screen name = 'FriendProfile' component ={FriendProfile}
     options =
     {{headerShown: false}}
     //, ({ route }) => ({title: route.params.name})}
-    
     />
     
   </HomeStack.Navigator>
@@ -51,7 +54,7 @@ const NewPartyStackScreen = () => (
 
 const TabsScreen = () => (
   <Tabs.Navigator>
-      <Tabs.Screen name = "Home" component = {HomeStackScreen} />
+      <Tabs.Screen name = "Home" component = {() => <HomeStackScreen inParty={inParty} setInParty = {setInParty}/>} />
       <Tabs.Screen name = "Profile" component = {ProfileStackScreen} />
     </Tabs.Navigator>
 )
@@ -60,7 +63,8 @@ const TabsScreen = () => (
 
 export default() => {
   const [isLoading, setIsLoading] = React.useState(true);
-  const [userToken, setUserToken] = React.useState(null)
+  const [userToken, setUserToken] = React.useState(null);
+  const [inParty, setInParty] = useState(false);
 
   const authContext = React.useMemo(() => {
 return {
@@ -103,7 +107,6 @@ return {
             <Tabs.Screen 
               name = "Home" 
               component = {HomeStackScreen}
-              
               options={
               {
                 

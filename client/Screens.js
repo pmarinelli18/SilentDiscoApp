@@ -26,12 +26,22 @@ const ScreenContainer = ({ children }) =>(
 const soundObject = new Audio.Sound();
 
 
-const leaveParty = async () => 
+
+export const InAParty = (props) =>
+(
+    <View style = {{backgroundColor : "white"}}>
+        <TouchableOpacity onPress ={()=> leaveParty(props.setInParty)}> 
+            <Text style = {{alignSelf : "center"}}>Leave Party</Text>
+        </TouchableOpacity>
+        </View>
+)
+const leaveParty = async (setInParty) => 
 {
+    setInParty(false);
     await soundObject.pauseAsync();
 }
 //https://docs.expo.io/versions/latest/sdk/audio/?redirected
-const  goToDisco =async (navigation, i) =>
+const goToDisco =async (navigation, i, inParty, setInParty) =>
 {
     try {
     await soundObject.loadAsync(require('./assets/songs/goodtimesroll.mp3'));
@@ -40,6 +50,7 @@ const  goToDisco =async (navigation, i) =>
     }
     try {
       await soundObject.playAsync();
+      setInParty(true);
       // sound work
     } catch (error) {
       console.log("sound no work");
@@ -48,7 +59,7 @@ const  goToDisco =async (navigation, i) =>
     navigation.push('Details', trendingDiscos[i])
 }
 
-export const Home =({ navigation }) => (
+export const Home =({ navigation }, props) => (
     
     <ScreenContainer style = {styles.container}>
         <ScrollView>
@@ -60,7 +71,7 @@ export const Home =({ navigation }) => (
                         trendingDiscos.map((item, i)  => {
                             return(
                                 <TouchableOpacity
-                                    onPress ={()=> goToDisco(navigation, i)}
+                                    onPress ={()=> goToDisco(navigation, i, props.inParty, props.setInParty)}
                                     key={i}
                                 >
                                     <Image source={{uri: trendingDiscos[i].songs[0].albumCover}}
@@ -107,11 +118,10 @@ export const Home =({ navigation }) => (
                 </View>
             </View>
         </ScrollView>
-        <View style = {{backgroundColor : "white"}}>
-        <TouchableOpacity onPress ={()=> leaveParty()}> 
-            <Text style = {{alignSelf : "center"}}>Leave Party</Text>
-        </TouchableOpacity>
-        </View>
+        <InAParty 
+            inParty = {props.inParty} 
+            setInParty ={props.setInParty}
+            />        
     </ScreenContainer>
 )
 export const Splash =() => (
