@@ -28,7 +28,7 @@ const  goToDisco =async (navigation, i) =>
     Audio.requestPermissionsAsync()
     const soundObject = new Audio.Sound();
     try {
-      await soundObject.loadAsync(require('./assets/goodtimesroll.mp3'));
+      await soundObject.loadAsync(require('./assets/songs/goodtimesroll.mp3'));
       await soundObject.playAsync();
       // Your sound is playing!
     } catch (error) {
