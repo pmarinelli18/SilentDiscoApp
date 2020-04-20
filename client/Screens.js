@@ -24,45 +24,48 @@ const ScreenContainer = ({ children }) =>(
 <View style ={styles.container}>{children}</View>
 );
 
-const soundObject = new Audio.Sound();
 
-
-const leaveParty = async (setInParty) => 
-{
-    setInParty(false);
-    await soundObject.pauseAsync();
-}
-//https://docs.expo.io/versions/latest/sdk/audio/?redirected
-const  goToDisco =async (navigation, i, inParty, setInParty) =>
-{
-    try {
-    await soundObject.loadAsync(require('./assets/songs/goodtimesroll.mp3'));
-    } catch (error) {
-        console.log("song no find");
-    }
-    try {
-      await soundObject.playAsync();
-      // sound work
-    } catch (error) {
-      console.log("sound no work");
-    }
-    setInParty(true);
-    navigation.push('Details', trendingDiscos[i])
-}
-
-export const AudioPlayer = (props) => (
-    <View style = {{backgroundColor : "white"}}>
-        <TouchableOpacity onPress ={()=> leaveParty(props.setInParty)}> 
-            <Text style = {{alignSelf : "center"}}>Leave Party</Text>
-        </TouchableOpacity>
-        </View>
-)
 
 export const Home =({ navigation }) => {
+    const [discos, setDiscos] = useState(trendingDiscos)
     const [inParty, setInParty] = useState(false);
     const updateInParty = (value) => {
-    setInParty(value);
+        setInParty(value);
     }
+
+    const soundObject = new Audio.Sound();
+
+    const leaveParty = async (setInParty) => 
+    {
+        setInParty(false);
+        await soundObject.pauseAsync();
+    }
+    //https://docs.expo.io/versions/latest/sdk/audio/?redirected
+    const  goToDisco =async (navigation, i, inParty, setInParty) =>
+    {
+        try {
+        await soundObject.loadAsync(require('./assets/songs/goodtimesroll.mp3'));
+        } catch (error) {
+            console.log("song no find");
+        }
+        try {
+        await soundObject.playAsync();
+        // sound work
+        } catch (error) {
+        console.log("sound no work");
+        }
+        setInParty(true);
+        navigation.push('Details', {currentDisco: discos[i], discos: discos, setDiscos, setDiscos})
+    }
+
+    const AudioPlayer = (props) => (
+        <View style = {{backgroundColor : "white"}}>
+            <TouchableOpacity onPress ={()=> leaveParty(props.setInParty)}> 
+                <Text style = {{alignSelf : "center"}}>Leave Party</Text>
+            </TouchableOpacity>
+        </View>
+    )
+
     return (
     <ScreenContainer style = {styles.container}>
         <ScrollView>
@@ -216,7 +219,8 @@ export const AddSongs =({route, navigation}) => {
     }
 
     const queue = (text) => {
-        navigation.navigate('NewParty', {name: text})
+        // navigation.navigate('NewParty', {name: text})
+        navigation.push('Details', trendingDiscos[route.params])
         
     }
 
@@ -256,18 +260,38 @@ export const AddSongs =({route, navigation}) => {
     );
 };
 
+export const SongList = (props) => {
+    // newSongList[props.i].votes
+    let thisDisco = props.route.params.currentDisco;
+    let newSongList = thisDisco.songs;
+    const [newVotes, setNewVotes] = useState(newSongList[props.i].votes)
+
+    const upVote = (index) => {
+        
+        setNewVotes(newSongList[index].votes + 1);
+        newSongList[index].votes = newSongList[index].votes + 1;
+        console.log(thisDisco.songs);
+        props.route.params.currentDisco = thisDisco;
+    }
+    return (
+        <View style = {styles.songItem} key={props.i}>
+            <View style = {styles.songText}>
+                <Text style = {styles.songName}>{props.item.name}</Text>
+                <Text style = {styles.artistText}>{props.item.artist}</Text>
+            </View>
+            <Text style = {styles.songVotes}>{newVotes}</Text>
+            <TouchableOpacity style = {styles.upvote} onPress={()=>upVote(props.i)}>
+            <Icon name="arrowup" size = {20} color="#3ae0d5"/>
+            </TouchableOpacity>
+        </View>  
+    )
+}
 
 export const Details = ({route, navigation}) => {
-    const [search, setSearch] = useState('')
-    
-    const upVote = () => {
-        
-    }
     const [collapseUsers, setCollapseUsers] = useState(true)
     const updateCollapse = () => {
         setCollapseUsers(!collapseUsers)
     }
-
 
     return(    
         <ScreenContainer >
@@ -276,33 +300,28 @@ export const Details = ({route, navigation}) => {
                     <View style={styles.discoContainer}>
                         <TouchableOpacity
                             style={styles.queueButton}
-                            onPress ={()=> navigation.push('Songs', route.params.ID)}
+                            onPress ={()=> navigation.push('Songs', route.params.currentDisco.ID)}
                         >
                             <Text style = {styles.queueText}>Queue a Song</Text>
                         </TouchableOpacity>
                         <Image source={{uri: trendingDiscos[0].songs[0].albumCover}}
                             style={styles.discoPageImage}
                         />
-                        <Text style = {styles.discoTitle}>{route.params.name}</Text>
+                        <Text style = {styles.discoTitle}>{route.params.currentDisco.name}</Text>
                     </View>
                     <ScrollView style = {styles.songList}>
-                            {
-                                route.params.songs.map((item, i)  => {
-                                    return(
-                                        <View style = {styles.songItem} key={i}>
-                                            <View style = {styles.songText}>
-                                                <Text style = {styles.songName}>{route.params.songs[i].name}</Text>
-                                                <Text style = {styles.artistText}>{route.params.songs[i].artist}</Text>
-                                            </View>
-                                            <Text style = {styles.songVotes}>{route.params.songs[i].votes}</Text>
-                                            <TouchableOpacity style = {styles.upvote} onPress={upVote}>
-                                            <Icon name="arrowup" size = {20} color="#3ae0d5"/>
-                                            </TouchableOpacity>
-                                        </View>
+                        {
+                            route.params.currentDisco.songs.map((item, i)  => {
+                                return(
+                                    <SongList
+                                    item = {item}
+                                    i = {i}
+                                    route = {route}
+                                    />
 
-                                    );
-                                })
-                            }
+                                );
+                            })
+                        }
                         </ScrollView>
                 </View>
                 
@@ -314,9 +333,9 @@ export const Details = ({route, navigation}) => {
                     <View style = {styles.friendList}>
                     <ScrollView style = {styles.contributorList}>
                             {
-                                route.params.users.map((item, i)  => {
+                                route.params.currentDisco.users.map((item, i)  => {
                                     return( 
-                                    <Text style = {styles.contributorName} key={i}>{route.params.users[i]}</Text>
+                                    <Text style = {styles.contributorName} key={i}>{item}</Text>
                                     );
                                 })
                             }
