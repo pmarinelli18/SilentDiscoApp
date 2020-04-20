@@ -141,8 +141,8 @@ export const Splash =() => (
 export const Profile =(navigation) => (
     <ScreenContainer style = {styles.homeContainer}>
         <Image source={{uri: users[0].image}}
-                                    style={styles.profileImage}
-                                />
+            style={styles.profileImage}
+        />
         <Text style = {styles.profileTitle}>{users[0].name}</Text>
         <ScrollView>
                 {
@@ -161,6 +161,7 @@ export const FriendProfile = ({route})=>(
 
 export const Songs =({route, navigation}) => {
     const [search, setSearch] = useState('')
+    const [newSongs, setSongs] = useState(route.params.songs)
 
     const data = songs.filter(song => (song.name.toLowerCase().includes(search.toLowerCase())) 
                                         || (song.artist.toLowerCase().includes(search.toLowerCase())))
@@ -169,8 +170,12 @@ export const Songs =({route, navigation}) => {
         setSearch(text)
     }
 
-    const queue = () => {
-        navigation.push('Details', trendingDiscos[route.params])
+    const queue = (i) => {
+        let tempArr = newSongs
+        tempArr.push(data[i])
+        console.log(tempArr)
+        navigation.push('Details', {currentDisco: trendingDiscos[route.params.ID]})
+        // {currentDisco: discos[i], discos: discos, setDiscos, setDiscos}
     }
 
     return(
@@ -188,7 +193,7 @@ export const Songs =({route, navigation}) => {
                     data.map((item, i)  => {
                         return(
                             <TouchableOpacity
-                                onPress ={queue}
+                                onPress ={() => queue(i)}
                                 key={i}
                             >
                                 <View style = {styles.searchItem} key={i}>
@@ -220,7 +225,7 @@ export const AddSongs =({route, navigation}) => {
 
     const queue = (text) => {
         // navigation.navigate('NewParty', {name: text})
-        navigation.push('Details', trendingDiscos[route.params])
+        navigation.push('NewParty', {name: text})
         
     }
 
@@ -266,13 +271,13 @@ export const SongList = (props) => {
     let newSongList = thisDisco.songs;
     const [newVotes, setNewVotes] = useState(newSongList[props.i].votes)
 
-    const upVote = (index) => {
-        
+    const upVote = (index) => { 
         setNewVotes(newSongList[index].votes + 1);
         newSongList[index].votes = newSongList[index].votes + 1;
-        console.log(thisDisco.songs);
+        // console.log(thisDisco.songs);
         props.route.params.currentDisco = thisDisco;
     }
+
     return (
         <View style = {styles.songItem} key={props.i}>
             <View style = {styles.songText}>
@@ -289,9 +294,22 @@ export const SongList = (props) => {
 
 export const Details = ({route, navigation}) => {
     const [collapseUsers, setCollapseUsers] = useState(true)
+    const[songData, setSongData] = useState(route.params.currentDisco.songs.sort(GetSortOrder('votes')))
+    
     const updateCollapse = () => {
         setCollapseUsers(!collapseUsers)
     }
+
+    function GetSortOrder(prop) {  
+        return function(a, b) {  
+            if (a[prop] < b[prop]) {  
+                return 1;  
+            } else if (a[prop] > b[prop]) {  
+                return -1;  
+            }  
+            return 0;  
+        }  
+    } 
 
     return(    
         <ScreenContainer >
@@ -300,7 +318,7 @@ export const Details = ({route, navigation}) => {
                     <View style={styles.discoContainer}>
                         <TouchableOpacity
                             style={styles.queueButton}
-                            onPress ={()=> navigation.push('Songs', route.params.currentDisco.ID)}
+                            onPress ={()=> navigation.push('Songs', route.params.currentDisco)}
                         >
                             <Text style = {styles.queueText}>Queue a Song</Text>
                         </TouchableOpacity>
@@ -311,18 +329,18 @@ export const Details = ({route, navigation}) => {
                     </View>
                     <ScrollView style = {styles.songList}>
                         {
-                            route.params.currentDisco.songs.map((item, i)  => {
+                            songData.map((item, i)  => {
                                 return(
                                     <SongList
-                                    item = {item}
-                                    i = {i}
-                                    route = {route}
+                                        item = {item}
+                                        i = {i}
+                                        route = {route}
                                     />
 
                                 );
                             })
                         }
-                        </ScrollView>
+                    </ScrollView>
                 </View>
                 
                 <View stlye = {styles.front}>

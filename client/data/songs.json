@@ -2,47 +2,58 @@
     {
         "name" : "Good Times Roll",
         "artist" : "Griz",
-        "albumCover" : "https://upload.wikimedia.org/wikipedia/en/a/ac/GRiZ-Good-Will-Prevail.png"
+        "albumCover" : "https://upload.wikimedia.org/wikipedia/en/a/ac/GRiZ-Good-Will-Prevail.png",
+        "votes" : 0
     },
     {
         "name" : "Good Times Roll A",
         "artist" : "Griz",
-        "albumCover" : "https://upload.wikimedia.org/wikipedia/en/a/ac/GRiZ-Good-Will-Prevail.png"
+        "albumCover" : "https://upload.wikimedia.org/wikipedia/en/a/ac/GRiZ-Good-Will-Prevail.png",
+        "votes" : 0
     },    {
         "name" : "Good Times Roll B",
         "artist" : "Griz",
-        "albumCover" : "https://upload.wikimedia.org/wikipedia/en/a/ac/GRiZ-Good-Will-Prevail.png"
+        "albumCover" : "https://upload.wikimedia.org/wikipedia/en/a/ac/GRiZ-Good-Will-Prevail.png",
+        "votes" : 0
     },    {
         "name" : "Good Times Roll C",
         "artist" : "Griz",
-        "albumCover" : "https://upload.wikimedia.org/wikipedia/en/a/ac/GRiZ-Good-Will-Prevail.png"
+        "albumCover" : "https://upload.wikimedia.org/wikipedia/en/a/ac/GRiZ-Good-Will-Prevail.png",
+        "votes" : 0
     },    {
         "name" : "Good Times Roll AA",
         "artist" : "Griz",
-        "albumCover" : "https://upload.wikimedia.org/wikipedia/en/a/ac/GRiZ-Good-Will-Prevail.png"
+        "albumCover" : "https://upload.wikimedia.org/wikipedia/en/a/ac/GRiZ-Good-Will-Prevail.png",
+        "votes" : 0
     },    {
         "name" : "Good Times Roll BB",
         "artist" : "Griz",
-        "albumCover" : "https://upload.wikimedia.org/wikipedia/en/a/ac/GRiZ-Good-Will-Prevail.png"
+        "albumCover" : "https://upload.wikimedia.org/wikipedia/en/a/ac/GRiZ-Good-Will-Prevail.png",
+        "votes" : 0
     },    {
         "name" : "Good Times Roll CC",
         "artist" : "Griz",
-        "albumCover" : "https://upload.wikimedia.org/wikipedia/en/a/ac/GRiZ-Good-Will-Prevail.png"
+        "albumCover" : "https://upload.wikimedia.org/wikipedia/en/a/ac/GRiZ-Good-Will-Prevail.png",
+        "votes" : 0
     },    {
         "name" : "Good Times Roll",
         "artist" : "Griz",
-        "albumCover" : "https://upload.wikimedia.org/wikipedia/en/a/ac/GRiZ-Good-Will-Prevail.png"
+        "albumCover" : "https://upload.wikimedia.org/wikipedia/en/a/ac/GRiZ-Good-Will-Prevail.png",
+        "votes" : 0
     },    {
         "name" : "Good Times Roll",
         "artist" : "Griz",
-        "albumCover" : "https://upload.wikimedia.org/wikipedia/en/a/ac/GRiZ-Good-Will-Prevail.png"
+        "albumCover" : "https://upload.wikimedia.org/wikipedia/en/a/ac/GRiZ-Good-Will-Prevail.png",
+        "votes" : 0
     },    {
         "name" : "Good Times Roll",
         "artist" : "Griz",
-        "albumCover" : "https://upload.wikimedia.org/wikipedia/en/a/ac/GRiZ-Good-Will-Prevail.png"
+        "albumCover" : "https://upload.wikimedia.org/wikipedia/en/a/ac/GRiZ-Good-Will-Prevail.png",
+        "votes" : 0
     },    {
         "name" : "Good Times Roll",
         "artist" : "Griz",
-        "albumCover" : "https://upload.wikimedia.org/wikipedia/en/a/ac/GRiZ-Good-Will-Prevail.png"
+        "albumCover" : "https://upload.wikimedia.org/wikipedia/en/a/ac/GRiZ-Good-Will-Prevail.png",
+        "votes" : 0
     }
 ]
