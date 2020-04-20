@@ -427,7 +427,22 @@ export const AddContributor =({route, navigation}) => {
         navigation.navigate('NewParty', {contributor: item.name})
         
     }
+    const imageSource = (name) =>{
 
+        switch(name){
+            case 'cory':
+                return(require('./assets/cory.jpg'))
+            case 'peyton':
+                return(require('./assets/Peyton.png'))
+            case 'eric':
+                return(require('./assets/Eric.png'))
+            case 'anthony':
+                return(require('./assets/anthony.jpg'))
+            default:
+                return(require('./assets/SilentDiscoNew-01.png'))
+        }
+        
+    }
     return(
     <ScreenContainer>
         <View style={styles.songsContainer}>
@@ -451,7 +466,7 @@ export const AddContributor =({route, navigation}) => {
                                         <Text style = {styles.searchSongName}>{item.name}</Text>
                                         
                                     </View>
-                                    <Image style={styles.searchAlbumCover}source={{uri: item.image}}/>
+                                    <Image style={styles.searchUserImage} source={imageSource(item.name)}/>
                                 </View>
                             </TouchableOpacity>
                 );
@@ -1160,6 +1175,12 @@ const styles = StyleSheet.create({
         width: 40,
         height: 40,
         marginTop: 8,
+    },
+    searchUserImage:{
+        width: 40,
+        height: 40,
+        marginTop: 8,
+        borderRadius: 300
     },
     searchSongName:{
         marginTop: 10,
