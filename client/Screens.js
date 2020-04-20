@@ -199,18 +199,34 @@ export const Songs =({route, navigation}) => {
     </ScreenContainer>
     );
 };
-
-export const Details = ({route, navigation}) => {
-    const [newVotes, setNewVotes] = useState(0)
+export const SongList = (props) => {
+    // newSongList[props.i].votes
+    let thisDisco = props.route.params.currentDisco;
+    let newSongList = thisDisco.songs;
+    const [newVotes, setNewVotes] = useState(newSongList[props.i].votes)
 
     const upVote = (index) => {
-        let thisDsico = route.params.currentDisco
-        let newSongList = thisDsico.songs
-        setNewVotes(newSongList[index].votes + 1)
-        newSongList[index].votes = newVotes
-        console.log(thisDsico.songs)
-        route.params.currentDisco = thisDsico
+        
+        setNewVotes(newSongList[index].votes + 1);
+        newSongList[index].votes = newSongList[index].votes + 1;
+        console.log(thisDisco.songs);
+        props.route.params.currentDisco = thisDisco;
     }
+    return (
+        <View style = {styles.songItem} key={props.i}>
+            <View style = {styles.songText}>
+                <Text style = {styles.songName}>{props.item.name}</Text>
+                <Text style = {styles.artistText}>{props.item.artist}</Text>
+            </View>
+            <Text style = {styles.songVotes}>{newVotes}</Text>
+            <TouchableOpacity style = {styles.upvote} onPress={()=>upVote(props.i)}>
+            <Icon name="arrowup" size = {20} color="#3ae0d5"/>
+            </TouchableOpacity>
+        </View>  
+    )
+}
+export const Details = ({route, navigation}) => {
+
     
     return(    
         <ScreenContainer>
@@ -230,16 +246,11 @@ export const Details = ({route, navigation}) => {
                         {
                             route.params.currentDisco.songs.map((item, i)  => {
                                 return(
-                                    <View style = {styles.songItem} key={i}>
-                                        <View style = {styles.songText}>
-                                            <Text style = {styles.songName}>{item.name}</Text>
-                                            <Text style = {styles.artistText}>{item.artist}</Text>
-                                        </View>
-                                        <Text style = {styles.songVotes}>{item.votes}</Text>
-                                        <TouchableOpacity style = {styles.upvote} onPress={()=>upVote(i)}>
-                                        <Icon name="arrowup" size = {20} color="#3ae0d5"/>
-                                        </TouchableOpacity>
-                                    </View>
+                                    <SongList
+                                    item = {item}
+                                    i = {i}
+                                    route = {route}
+                                    />
 
                                 );
                             })
