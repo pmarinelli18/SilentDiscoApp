@@ -65,7 +65,22 @@ export const Home =({ navigation }) => {
             </TouchableOpacity>
         </View>
     )
+    const imageSource = (name) =>{
 
+        switch(name){
+            case 'cory':
+                return(require('./assets/cory.jpg'))
+            case 'peyton':
+                return(require('./assets/Peyton.png'))
+            case 'eric':
+                return(require('./assets/Eric.png'))
+            case 'anthony':
+                return(require('./assets/anthony.jpg'))
+            default:
+                return(require('./assets/SilentDiscoNew-01.png'))
+        }
+        
+    }
     return (
     <ScreenContainer style = {styles.container}>
         <ScrollView>
@@ -114,7 +129,7 @@ export const Home =({ navigation }) => {
                                     onPress ={()=> navigation.push('FriendProfile', users[i])}
                                     key={i}
                                 >
-                                    <Image source={{uri: users[i].image}}
+                                    <Image source={imageSource(users[i].name)}
                                         style={styles.friendImage}
                                     />
                                 </TouchableOpacity>
@@ -138,14 +153,32 @@ export const Splash =() => (
     </ScreenContainer>
 )
 
-export const Profile =(navigation) => 
+export const Profile =(navigation) => {
 
 
-(
+
+    const imageSource = (name) =>{
+
+        switch(name){
+            case 'cory':
+                return(require('./assets/cory.jpg'))
+            case 'peyton':
+                return(require('./assets/Peyton.png'))
+            case 'eric':
+                return(require('./assets/Eric.png'))
+            case 'anthony':
+                return(require('./assets/anthony.jpg'))
+            default:
+                return(require('./assets/SilentDiscoNew-01.png'))
+        }
+        
+    }
+
+return(
     
     <ScreenContainer style = {styles.profileContainer}>
         <View style={styles.songsContainer}>
-        <Image source={{uri: users[0].image}}
+        <Image source={imageSource(users[0].name)}
             style={styles.profileImage}
         />
         <Text style = {styles.profileTitle}>{users[0].name}</Text>
@@ -197,12 +230,31 @@ export const Profile =(navigation) =>
             </ScrollView>
     </ScreenContainer>
 )
-export const FriendProfile =({route, navigation}) => 
-(
+
+}
+export const FriendProfile =({route, navigation}) => {
+
+    const imageSource = (name) =>{
+
+        switch(name){
+            case 'cory':
+                return(require('./assets/cory.jpg'))
+            case 'peyton':
+                return(require('./assets/Peyton.png'))
+            case 'eric':
+                return(require('./assets/Eric.png'))
+            case 'anthony':
+                return(require('./assets/anthony.jpg'))
+            default:
+                return(require('./assets/SilentDiscoNew-01.png'))
+        }
+        
+    }
+return(
     
     <ScreenContainer style = {styles.profileContainer}>
         <View style={styles.songsContainer}>
-        <Image source={{uri: route.params.image}}
+        <Image source={imageSource(route.params.name)}
             style={styles.profileImage}
         />
         <Text style = {styles.profileTitle}>{route.params.name}</Text>
@@ -254,7 +306,7 @@ export const FriendProfile =({route, navigation}) =>
             </ScrollView>
     </ScreenContainer>
 )
-
+}
 export const Songs =({route, navigation}) => {
     const [search, setSearch] = useState('')
     const [newSongs, setSongs] = useState(route.params.songs)
@@ -929,7 +981,7 @@ const styles = StyleSheet.create({
     friendImage: {
         width: 90,
         height: 90,
-        borderRadius:150,
+        borderRadius:300,
         resizeMode: 'contain',
         marginLeft: 10,
         marginRight: 10,
@@ -940,7 +992,7 @@ const styles = StyleSheet.create({
     profileImage:{
             width: 120,
             height: 120,
-            borderRadius:50,
+            borderRadius:300,
             marginTop: 120,
             alignSelf: "center",
             
