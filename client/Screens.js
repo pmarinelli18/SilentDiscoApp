@@ -47,8 +47,13 @@ const  goToDisco =async (navigation, i, inParty, setInParty) =>
       console.log("sound no work");
     }
     setInParty(true);
-    navigation.push('Details', trendingDiscos[i])
+    console.log("Value of InParty **********************************");
+    console.log(inParty);
+    navigation.push('Details', trendingDiscos[i], { 
+        inParty: true,
+      })
 }
+
 
 export const AudioPlayer = (props) => (
     <View style = {{backgroundColor : "white"}}>
@@ -123,7 +128,7 @@ export const Home =({ navigation }) => {
         </ScrollView>
         {
         inParty?
-        <AudioPlayer setInParty = {setInParty} inParty = {inParty} />
+        <AudioPlayer setInParty = {updateInParty} inParty = {inParty} />
         :null
         }
     </ScreenContainer>
@@ -259,7 +264,9 @@ export const AddSongs =({route, navigation}) => {
 
 export const Details = ({route, navigation}) => {
     const [search, setSearch] = useState('')
-    
+    const { setInParty } = route.params;
+    const { inParty } = route.params;
+    console.log(inParty);
     const upVote = () => {
         
     }
@@ -326,7 +333,12 @@ export const Details = ({route, navigation}) => {
                 </View>
                             
                         
-            </View>                       
+            </View>      
+            {
+                inParty?
+                <AudioPlayer setInParty = {setInParty} inParty = {inParty} />
+                :<Text style = {{color : "white"}} >HI</Text>
+            }      
         </ScreenContainer>
     )
 }
