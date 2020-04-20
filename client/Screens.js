@@ -333,7 +333,7 @@ export const AddContributor =({route, navigation}) => {
                 style={{ height: 40, borderColor: '#00a6ff',borderRadius: 20 , borderWidth: 1, color: '#FFFFFF', backgroundColor: 'rgba(100, 100, 100, 0.5)', marginTop: 60}}
                 placeholderTextColor = "#00a6ff"
                 onChangeText={text => updateSearch(text)}
-                placeholder="Search Song..."
+                placeholder="Search User..."
                 textAlign= 'center'
             />
             <ScrollView >
