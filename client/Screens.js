@@ -594,12 +594,12 @@ export const NewParty = ({route, navigation}) => {
         setCollapseUsers(!collapseUsers)
     }
 
-    const [disco,setDisco] = useState({Name : "New Disco",songs: [],contributors: ['anthony']})
+    const [disco,setDisco] = useState({Name : "New Disco",songs: [],contributors: [users[0].name]})
         
     
     const updateName = (text) => {
         if(route == null){
-            setDisco({Name : text,songs: [],contributors: ['anthony']})
+            setDisco({Name : text,songs: [],contributors: [users[0].name]})
         }
         else{
             setDisco({Name : text,songs: disco.songs, contributors: disco.contributors})
@@ -615,7 +615,7 @@ export const NewParty = ({route, navigation}) => {
     }
     const updateSongs = (item) => {
         if(route == null){
-            setDisco({Name : "New Disco",songs: [item],contributors: ['anthony']})
+            setDisco({Name : "New Disco",songs: [item],contributors: [users[0].name]})
         }
         else if(route.name == null){
 
