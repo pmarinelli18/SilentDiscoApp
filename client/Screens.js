@@ -138,16 +138,62 @@ export const Splash =() => (
     </ScreenContainer>
 )
 
-export const Profile =(navigation) => (
-    <ScreenContainer style = {styles.homeContainer}>
+export const Profile =(navigation) => 
+
+
+(
+    
+    <ScreenContainer style = {styles.profileContainer}>
+        <View style={styles.songsContainer}>
         <Image source={{uri: users[0].image}}
             style={styles.profileImage}
         />
         <Text style = {styles.profileTitle}>{users[0].name}</Text>
-        <ScrollView>
+        <View style ={styles.row}>
+            <View style ={styles.row2}>
+            <Text style = {styles.followersText2}>162</Text>
+        <Text style = {styles.followersText}>F O L L O W E R S</Text>
+        </View>
+        <View style ={styles.row2}>
+        <Text style = {styles.followersText2}>54</Text>
+        <Text style = {styles.followersText}>F O L L O W I N G</Text>
+       
+        </View>
+
+        <View style ={styles.row2}>
+        <Text style = {styles.followersText2}>4</Text>
+        <Text style = {styles.followersText}>D I S C O S</Text>
+        
+        </View>
+
+        </View>
+        </View>
+        <ScrollView style ={styles.profContain}>
                 {
-                    
+                  
+
+                    trendingDiscos.map((item, i)  => {
+                        return(
+                            <TouchableOpacity
+                                onPress ={() => queue(i)}
+                                key={i}
+                            >
+                               
+                                <View style = {styles.searchItem} key={i}>
+                                    <View style = {styles.songText}>
+                                        <Text style = {styles.searchSongName}>{item.name}</Text>
+                                       
+                                        <Text style = {styles.searchSongName}>{item.songs.artist}</Text>
+                                    </View>
+                                    <Image style={styles.searchAlbumCover}source={{uri: item.albumCover}}/>
+                                    
+                                </View>
+                                
+                            </TouchableOpacity>
+                );
+                    })
                 }
+
             </ScrollView>
     </ScreenContainer>
 )
@@ -635,6 +681,18 @@ const styles = StyleSheet.create({
         fontSize:18,
         fontWeight:"400",
       },
+      followersText:{
+        fontSize:13,
+        fontWeight:"400",
+        color: "#ffffff",
+     
+      },
+
+      followersText2:{
+        fontSize:13,
+        fontWeight:"600",
+        color: "#ffffff"
+      },
       loginContainer:{
         alignItems:'center',
         marginTop: 10,
@@ -645,6 +703,18 @@ const styles = StyleSheet.create({
         alignItems:'center',
         marginTop:10,
         marginBottom: 20
+    },
+
+    row:{
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-evenly',
+
+    },
+
+    row2:{
+        alignItems: 'center',
+        
     },
     loginInput:{
         
@@ -717,7 +787,12 @@ const styles = StyleSheet.create({
         marginTop: 80,
        
     },
-
+    profileContainer: {
+        marginLeft: 30,
+        marginRight: 30,
+        marginTop: 80,
+       
+    },
     discoImage: {
         width: 120,
         height: 120,
@@ -741,9 +816,9 @@ const styles = StyleSheet.create({
             width: 120,
             height: 120,
             borderRadius:50,
-            resizeMode: 'contain',
+            marginTop: 120,
             alignSelf: "center",
-            flex: 1
+            
     },
 
     followers:{
@@ -836,8 +911,8 @@ const styles = StyleSheet.create({
         alignSelf:"center",
         fontSize: 25,
         color: '#3ae0d5',
-        marginTop: -160,
-        marginBottom: 30,
+        marginTop:10,
+        marginBottom:20,
         fontWeight: "bold"
     },
     discoContainer: {
@@ -899,6 +974,10 @@ const styles = StyleSheet.create({
         borderBottomColor: '#3ae0d5',
         borderBottomWidth: 1,
         
+    },
+
+    profContain:{
+        marginTop:100
     },
     searchAlbumCover:{
         width: 40,
