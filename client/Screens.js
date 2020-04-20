@@ -201,8 +201,9 @@ export const AddSongs =({route, navigation}) => {
         setSearch(text)
     }
 
-    const queue = () => {
-        navigation.push('NewParty',route.params)
+    const queue = (text) => {
+        navigation.navigate('NewParty', {name: text})
+        
     }
 
     return(
@@ -220,7 +221,7 @@ export const AddSongs =({route, navigation}) => {
                     data.map((item, i)  => {
                         return(
                             <TouchableOpacity
-                                onPress ={queue}
+                                onPress ={() => queue(item.name)}
                                 key={i}
                             >
                                 <View style = {styles.searchItem} key={i}>
@@ -317,40 +318,97 @@ export const Details = ({route, navigation}) => {
 
 export const NewParty = ({route, navigation}) => {
         
-    const [disconame,setName] = useState(route.params)
-        
-    const updateName = (text) => {
-            setName(text)
-        }
-    
     const [collapseUsers, setCollapseUsers] = useState(true)
-    
+    {
+        if(route.params == null)
+        route.params = {name:''}
+        
+    }
     const updateCollapse = () => {
         setCollapseUsers(!collapseUsers)
     }
+
+    const [disco,setDisco] = useState({Name : "New Disco",songs: [],contributors: ['anthony']})
+        
+    
+    const updateName = (text) => {
+        if(route == null){
+            console.log('okay')
+            setDisco({Name : text,songs: [],contributors: ['anthony']})
+        }
+        else{
+            console.log('huh')
+            setDisco({Name : text,songs: disco.songs, contributors: disco.contributors})
+        }
+    }
     const[contributors, setContributors] = useState(['anthony'])
     
-    const updateContributors = (text) =>{
-        setContributors(contributors + [text])
+    const updateContributors = (text) => {
+        setDisco({Name : disco.Name,songs: disco.songs, contributors: disco.contributors.concat([text])})
     }
+    const updateSongs = (text) => {
+        if(route == null){
+            setDisco({Name : "New Disco",songs: [text],contributors: ['anthony']})
+        }
+        else{
+            setDisco({Name : disco.Name,songs: disco.songs.concat([text]), contributors: disco.contributors})
+        }
+        navigation.push('AddSongs')
+    }
+    
+    
+    
 
     return(
+    
     <ScreenContainer>
         <View style = {styles.behind}>
             <View style = {styles.discoContainer}>
                 <TextInput style ={styles.newDiscoName}
-                value = {disconame}
+                value = {disco.Name}
                 onChangeText = {text=>updateName(text)}
                 />
                 <TouchableOpacity
                     style={styles.queueButton}
-                    onPress ={()=> navigation.push('AddSongs', disconame)}
+                    onPress ={()=> updateSongs(route.params.name)}
                 >
                     <Text style = {styles.queueText}>Queue a Song</Text>
                 </TouchableOpacity>
             </View>
+            <ScrollView style = {styles.songList}>
+                        {
+                            disco.songs.map((item, i)  => {
+                                return(
+                                    <View style = {styles.songItem} key={i}>
+                                        <View style = {styles.songText}>
+                                            <Text style = {styles.songName}>{disco.songs[i]}</Text>
+                                            <Text style = {styles.artistText}>artist</Text>
+                                        </View>
+                                        <Text style = {styles.songVotes}>0</Text>
+                                        <TouchableOpacity style = {styles.upvote} >
+                                        <Icon name="arrowup" size = {20} color="#3ae0d5"/>
+                                        </TouchableOpacity>
+                                    </View>
+
+                                );
+                            })
+                        }
+                        
+                            
+                            <View style = {styles.songItem}>
+                                <View style = {styles.songText}>
+                                    <Text style = {styles.songName}>{route.params.name}</Text>
+                                    <Text style = {styles.artistText}>artist</Text>
+                                </View>
+                                <Text style = {styles.songVotes}>0</Text>
+                                <TouchableOpacity style = {styles.upvote} >
+                                <Icon name="arrowup" size = {20} color="#3ae0d5"/>
+                                </TouchableOpacity>
+                            </View>
+                        
+                        
+                    </ScrollView>
         </View>
-        
         <View stlye = {styles.front}>
                 <TouchableOpacity onPress = {()=>updateCollapse()} style = {styles.toggleCollapse}>
                     <Text >Contributers</Text>
@@ -359,13 +417,14 @@ export const NewParty = ({route, navigation}) => {
                 <View style = {styles.friendList}>
                 <ScrollView style = {styles.contributorList}>
                         {
-                            contributors.map((item, i)  => {
+                            disco.contributors.map((item, i)  => {
                                 return( 
-                                <Text style = {styles.contributorName} key={i}>{contributors[i]}</Text>
+                                <Text style = {styles.contributorName} key={i}>{disco.contributors[i]}</Text>
                                 );
                             })
                         }
-                        <TouchableOpacity>
+                        <TextInput style = {styles.addContributor}></TextInput>
+                        <TouchableOpacity onPress = {() => updateContributors("me")}>
                         <Text style = {styles.contributorName}>Add Contributer</Text>
                         </TouchableOpacity>
                     </ScrollView>
@@ -889,6 +948,13 @@ const styles = StyleSheet.create({
         borderColor: "grey",
         borderWidth: 1,
         
+    },
+    addContributor:{
+        alignSelf: 'center',
+        width: '70%',
+        marginTop: 5,
+        borderWidth: 1,
+        paddingLeft: 10,
     }
 
 });
