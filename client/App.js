@@ -5,7 +5,7 @@ import { createStackNavigator} from '@react-navigation/stack'
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import {AuthContext} from './context'
 import {Button} from 'react-native';
-import {AddSongs, SignIn, LoginInfo, CreateAccount, Profile, Home, Details, FriendProfile, Splash, NewParty, Songs} from './Screens';
+import {AddContributor, AddSongs, SignIn, LoginInfo, CreateAccount, Profile, Home, Details, FriendProfile, Splash, NewParty, Songs} from './Screens';
 
 import TabBarIcon from './components/TabBarIcon';
 const AuthStack = createStackNavigator();
@@ -50,7 +50,11 @@ const NewPartyStackScreen = () => (
       options =
       {{headerShown: false}}
       //, ({ route }) => ({title: route.params.name})}
-    
+    />
+    <ProfileStack.Screen name= 'AddContributor' component ={AddContributor} 
+      options =
+      {{headerShown: false}}
+      //, ({ route }) => ({title: route.params.name})}
     />
   
   </ProfileStack.Navigator>
