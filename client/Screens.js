@@ -197,12 +197,62 @@ export const Profile =(navigation) =>
             </ScrollView>
     </ScreenContainer>
 )
-export const FriendProfile = ({route})=>(
+export const FriendProfile =({route, navigation}) => 
+(
+    
+    <ScreenContainer style = {styles.profileContainer}>
+        <View style={styles.songsContainer}>
+        <Image source={{uri: route.params.image}}
+            style={styles.profileImage}
+        />
+        <Text style = {styles.profileTitle}>{route.params.name}</Text>
+        <View style ={styles.row}>
+            <View style ={styles.row2}>
+            <Text style = {styles.followersText2}>162</Text>
+        <Text style = {styles.followersText}>F O L L O W E R S</Text>
+        </View>
+        <View style ={styles.row2}>
+        <Text style = {styles.followersText2}>54</Text>
+        <Text style = {styles.followersText}>F O L L O W I N G</Text>
+       
+        </View>
 
+        <View style ={styles.row2}>
+        <Text style = {styles.followersText2}>4</Text>
+        <Text style = {styles.followersText}>D I S C O S</Text>
+        
+        </View>
 
-    <View>
+        </View>
+        </View>
+        <ScrollView style ={styles.profContain}>
+                {
+                  
 
-    </View>
+                    trendingDiscos.map((item, i)  => {
+                        return(
+                            <TouchableOpacity
+                                onPress ={() => queue(i)}
+                                key={i}
+                            >
+                               
+                                <View style = {styles.searchItem} key={i}>
+                                    <View style = {styles.songText}>
+                                        <Text style = {styles.searchSongName}>{item.name}</Text>
+                                       
+                                        <Text style = {styles.searchSongName}>{item.songs.artist}</Text>
+                                    </View>
+                                    <Image style={styles.searchAlbumCover}source={{uri: item.albumCover}}/>
+                                    
+                                </View>
+                                
+                            </TouchableOpacity>
+                );
+                    })
+                }
+
+            </ScrollView>
+    </ScreenContainer>
 )
 
 export const Songs =({route, navigation}) => {
