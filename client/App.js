@@ -1,12 +1,12 @@
 
 import React, {useState} from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator} from '@react-navigation/stack';
-import { createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import { AuthContext} from './context';
-import { Button} from 'react-native';
-import { SignIn, LoginInfo, CreateAccount, Profile, Home, Details, FriendProfile, Splash, NewParty, Songs} from './Screens';
+import { NavigationContainer } from '@react-navigation/native'
+import { createStackNavigator} from '@react-navigation/stack'
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
+import {AuthContext} from './context'
+import {Button} from 'react-native';
+import {AddSongs, SignIn, LoginInfo, CreateAccount, Profile, Home, Details, FriendProfile, Splash, NewParty, Songs} from './Screens';
 
 import TabBarIcon from './components/TabBarIcon';
 const AuthStack = createStackNavigator();
@@ -47,7 +47,15 @@ const ProfileStackScreen = () => (
 const NewPartyStackScreen = () => (
   <ProfileStack.Navigator> 
     <ProfileStack.Screen options={{headerShown: false}} name= 'NewParty' component ={NewParty}/>
+    <ProfileStack.Screen name= 'AddSongs' component ={AddSongs} 
+      options =
+      {{headerShown: false}}
+      //, ({ route }) => ({title: route.params.name})}
+    
+    />
+  
   </ProfileStack.Navigator>
+
 )
 
 const TabsScreen = () => (
