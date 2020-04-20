@@ -256,62 +256,63 @@ export const Details = ({route, navigation}) => {
 
 
     return(    
-        <ScreenContainer>
-        <View style = {styles.behind}>
-            <View style={styles.discoContainer}>
-                <TouchableOpacity
-                    style={styles.queueButton}
-                    onPress ={()=> navigation.push('Songs', route.params.ID)}
-                >
-                    <Text style = {styles.queueText}>Queue a Song</Text>
-                </TouchableOpacity>
-                <Image source={{uri: trendingDiscos[0].songs[0].albumCover}}
-                    style={styles.discoPageImage}
-                />
-                <Text style = {styles.discoTitle}>{route.params.name}</Text>
-            </View>
-                <ScrollView style = {styles.songList}>
-                        {
-                            route.params.songs.map((item, i)  => {
-                                return(
-                                    <View style = {styles.songItem} key={i}>
-                                        <View style = {styles.songText}>
-                                            <Text style = {styles.songName}>{route.params.songs[i].name}</Text>
-                                            <Text style = {styles.artistText}>{route.params.songs[i].artist}</Text>
+        <ScreenContainer >
+            <View style = {styles.discoHeadContainer}>
+                <View style = {styles.behind}>
+                    <View style={styles.discoContainer}>
+                        <TouchableOpacity
+                            style={styles.queueButton}
+                            onPress ={()=> navigation.push('Songs', route.params.ID)}
+                        >
+                            <Text style = {styles.queueText}>Queue a Song</Text>
+                        </TouchableOpacity>
+                        <Image source={{uri: trendingDiscos[0].songs[0].albumCover}}
+                            style={styles.discoPageImage}
+                        />
+                        <Text style = {styles.discoTitle}>{route.params.name}</Text>
+                    </View>
+                    <ScrollView style = {styles.songList}>
+                            {
+                                route.params.songs.map((item, i)  => {
+                                    return(
+                                        <View style = {styles.songItem} key={i}>
+                                            <View style = {styles.songText}>
+                                                <Text style = {styles.songName}>{route.params.songs[i].name}</Text>
+                                                <Text style = {styles.artistText}>{route.params.songs[i].artist}</Text>
+                                            </View>
+                                            <Text style = {styles.songVotes}>{route.params.songs[i].votes}</Text>
+                                            <TouchableOpacity style = {styles.upvote} onPress={upVote}>
+                                            <Icon name="arrowup" size = {20} color="#3ae0d5"/>
+                                            </TouchableOpacity>
                                         </View>
-                                        <Text style = {styles.songVotes}>{route.params.songs[i].votes}</Text>
-                                        <TouchableOpacity style = {styles.upvote} onPress={upVote}>
-                                        <Icon name="arrowup" size = {20} color="#3ae0d5"/>
-                                        </TouchableOpacity>
-                                    </View>
 
-                                );
-                            })
-                        }
-                    </ScrollView>
-            </View>
-            
-            <View stlye = {styles.front}>
-                <TouchableOpacity onPress = {()=>updateCollapse()} style = {styles.toggleCollapse}>
-                    <Text >Contributers</Text>
-                </TouchableOpacity>
-                <Collapsible collapsed = {collapseUsers}>
-                <View style = {styles.friendList}>
-                <ScrollView style = {styles.contributorList}>
-                        {
-                            route.params.users.map((item, i)  => {
-                                return( 
-                                <Text style = {styles.contributorName} key={i}>{route.params.users[i]}</Text>
-                                );
-                            })
-                        }
-                    </ScrollView>
+                                    );
+                                })
+                            }
+                        </ScrollView>
                 </View>
-                </Collapsible>
-            </View>
-                         
-                    
-                                   
+                
+                <View stlye = {styles.front}>
+                    <TouchableOpacity onPress = {()=>updateCollapse()} style = {styles.toggleCollapse}>
+                        <Text >Contributers</Text>
+                    </TouchableOpacity>
+                    <Collapsible collapsed = {collapseUsers}>
+                    <View style = {styles.friendList}>
+                    <ScrollView style = {styles.contributorList}>
+                            {
+                                route.params.users.map((item, i)  => {
+                                    return( 
+                                    <Text style = {styles.contributorName} key={i}>{route.params.users[i]}</Text>
+                                    );
+                                })
+                            }
+                        </ScrollView>
+                    </View>
+                    </Collapsible>
+                </View>
+                            
+                        
+            </View>                       
         </ScreenContainer>
     )
 }
@@ -333,15 +334,13 @@ export const NewParty = ({route, navigation}) => {
     
     const updateName = (text) => {
         if(route == null){
-            console.log('okay')
             setDisco({Name : text,songs: [],contributors: ['anthony']})
         }
         else{
-            console.log('huh')
             setDisco({Name : text,songs: disco.songs, contributors: disco.contributors})
         }
     }
-    const[contributors, setContributors] = useState(['anthony'])
+    const[contributor, setContributor] = useState('')
     
     const updateContributors = (text) => {
         setDisco({Name : disco.Name,songs: disco.songs, contributors: disco.contributors.concat([text])})
@@ -362,74 +361,79 @@ export const NewParty = ({route, navigation}) => {
     return(
     
     <ScreenContainer>
-        <View style = {styles.behind}>
-            <View style = {styles.discoContainer}>
-                <TextInput style ={styles.newDiscoName}
-                value = {disco.Name}
-                onChangeText = {text=>updateName(text)}
-                />
-                <TouchableOpacity
-                    style={styles.queueButton}
-                    onPress ={()=> updateSongs(route.params.name)}
-                >
-                    <Text style = {styles.queueText}>Queue a Song</Text>
-                </TouchableOpacity>
-            </View>
-            <ScrollView style = {styles.songList}>
-                        {
-                            disco.songs.map((item, i)  => {
-                                return(
-                                    <View style = {styles.songItem} key={i}>
-                                        <View style = {styles.songText}>
-                                            <Text style = {styles.songName}>{disco.songs[i]}</Text>
-                                            <Text style = {styles.artistText}>artist</Text>
-                                        </View>
-                                        <Text style = {styles.songVotes}>0</Text>
-                                        <TouchableOpacity style = {styles.upvote} >
-                                        <Icon name="arrowup" size = {20} color="#3ae0d5"/>
-                                        </TouchableOpacity>
-                                    </View>
-
-                                );
-                            })
-                        }
-                        
-                            
-                            <View style = {styles.songItem}>
-                                <View style = {styles.songText}>
-                                    <Text style = {styles.songName}>{route.params.name}</Text>
-                                    <Text style = {styles.artistText}>artist</Text>
-                                </View>
-                                <Text style = {styles.songVotes}>0</Text>
-                                <TouchableOpacity style = {styles.upvote} >
-                                <Icon name="arrowup" size = {20} color="#3ae0d5"/>
-                                </TouchableOpacity>
-                            </View>
-                        
-                        
-                    </ScrollView>
-        </View>
-        <View stlye = {styles.front}>
-                <TouchableOpacity onPress = {()=>updateCollapse()} style = {styles.toggleCollapse}>
-                    <Text >Contributers</Text>
-                </TouchableOpacity>
-                <Collapsible collapsed = {collapseUsers}>
-                <View style = {styles.friendList}>
-                <ScrollView style = {styles.contributorList}>
-                        {
-                            disco.contributors.map((item, i)  => {
-                                return( 
-                                <Text style = {styles.contributorName} key={i}>{disco.contributors[i]}</Text>
-                                );
-                            })
-                        }
-                        <TextInput style = {styles.addContributor}></TextInput>
-                        <TouchableOpacity onPress = {() => updateContributors("me")}>
-                        <Text style = {styles.contributorName}>Add Contributer</Text>
-                        </TouchableOpacity>
-                    </ScrollView>
+        <View style = {styles.discoHeadContainer}>
+            <View style = {styles.behind}>
+                <View style = {styles.discoContainer}>
+                    <TextInput style ={styles.newDiscoName}
+                    value = {disco.Name}
+                    onChangeText = {text=>updateName(text)}
+                    />
+                    <TouchableOpacity
+                        style={styles.queueButton}
+                        onPress ={()=> updateSongs(route.params.name)}
+                    >
+                        <Text style = {styles.queueText}>Queue a Song</Text>
+                    </TouchableOpacity>
                 </View>
-                </Collapsible>
+                <ScrollView style = {styles.songList}>
+                            {
+                                disco.songs.map((item, i)  => {
+                                    return(
+                                        <View style = {styles.songItem} key={i}>
+                                            <View style = {styles.songText}>
+                                                <Text style = {styles.songName}>{disco.songs[i]}</Text>
+                                                <Text style = {styles.artistText}>artist</Text>
+                                            </View>
+                                            <Text style = {styles.songVotes}>0</Text>
+                                            <TouchableOpacity style = {styles.upvote} >
+                                            <Icon name="arrowup" size = {20} color="#3ae0d5"/>
+                                            </TouchableOpacity>
+                                        </View>
+
+                                    );
+                                })
+                            }
+                            
+                                
+                                <View style = {styles.songItem}>
+                                    <View style = {styles.songText}>
+                                        <Text style = {styles.songName}>{route.params.name}</Text>
+                                        <Text style = {styles.artistText}>artist</Text>
+                                    </View>
+                                    <Text style = {styles.songVotes}>0</Text>
+                                    <TouchableOpacity style = {styles.upvote} >
+                                    <Icon name="arrowup" size = {20} color="#3ae0d5"/>
+                                    </TouchableOpacity>
+                                </View>
+                            
+                            
+                        </ScrollView>
+            </View>
+            <View stlye = {styles.front}>
+                    <TouchableOpacity onPress = {()=>updateCollapse()} style = {styles.toggleCollapse}>
+                        <Text >Contributers</Text>
+                    </TouchableOpacity>
+                    <Collapsible collapsed = {collapseUsers}>
+                        <View style = {styles.friendList}>
+                        <ScrollView style = {styles.contributorList}>
+                                {
+                                    disco.contributors.map((item, i)  => {
+                                        return( 
+                                        <Text style = {styles.contributorName} key={i}>{disco.contributors[i]}</Text>
+                                        );
+                                    })
+                                }
+                                <TextInput style = {styles.addContributor}
+                                 value = {contributor}
+                                 onChangeText = {text => setContributor(text)}
+                                 ></TextInput>
+                                <TouchableOpacity onPress = {() => updateContributors(contributor)}>
+                                <Text style = {styles.contributorName}>Add Contributer</Text>
+                                </TouchableOpacity>
+                            </ScrollView>
+                        </View>
+                    </Collapsible>
+                </View>
             </View>
     </ScreenContainer>
     )
@@ -534,8 +538,14 @@ const styles = StyleSheet.create({
     container: {
         flex: 1, 
         backgroundColor: '#09090a',
+        //flexDirection: 'column-reverse'
         justifyContent: 'center',
         //alignContent: 'center'
+    },
+    discoHeadContainer:{
+        flex: 1, 
+        backgroundColor: '#09090a',
+        flexDirection: 'column-reverse'
     },
     button: {
  
@@ -875,23 +885,13 @@ const styles = StyleSheet.create({
         borderRightColor: 'transparent',
         borderLeftColor: 'transparent',
         flex:1,
-        marginTop:"175%",
-        alignItems: 'center',
+        
         alignSelf:'center'
     },
     
     songList:{
         width:"100%",
         height: "30%"
-    },
-    bottomOverlay:{
-        position: 'absolute',
-            right: 10,
-            top: 40,
-            flexDirection: "row",
-            height: 60,
-            alignItems: "center",
-            padding: 10
     },
     behind:{
         alignItems: 'center',
@@ -905,23 +905,20 @@ const styles = StyleSheet.create({
     },
     front:{
         
-        flexDirection:'column',
-        width: '100%',
-        height: '100%',
-        
+       height: 200,
+       width: 100, 
     },
     friendList:{
         height: 200,
         width:250,
+        alignSelf:'center',
         flex: 2,
-        alignSelf: 'center',
-        alignItems: 'center',
         backgroundColor: "#00BCD4"
     },
     contributorList:{
         width: '100%',
         height: 100,
-        alignSelf: "flex-start"
+        alignSelf: "center"
     },
     contributorName:{
         borderRadius: 15,
