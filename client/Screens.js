@@ -59,9 +59,9 @@ export const Home =({ navigation }) => {
     }
 
     const AudioPlayer = (props) => (
-        <View style = {{backgroundColor : "white"}}>
+        <View style = {{backgroundColor : "#161c1f", padding:8}}>
             <TouchableOpacity onPress ={()=> leaveParty(props.setInParty)}> 
-                <Text style = {{alignSelf : "center"}}>Leave Party</Text>
+                <Text style = {{alignSelf : "center", fontWeight:"bold", color:"white"}}>L E A V E   P A R T Y</Text>
             </TouchableOpacity>
         </View>
     )
@@ -76,6 +76,10 @@ export const Home =({ navigation }) => {
                 return(require('./assets/Eric.png'))
             case 'anthony':
                 return(require('./assets/anthony.jpg'))
+            case 'DJ_User':
+                return(require('./assets/Julia.png'))
+            case 'MannyLop':
+                return(require('./assets/Manny.png'))
             default:
                 return(require('./assets/SilentDiscoNew-01.png'))
         }
@@ -530,16 +534,17 @@ export const Details = ({route, navigation}) => {
             <View style = {styles.discoHeadContainer}>
                 <View style = {styles.behind}>
                     <View style={styles.discoContainer}>
+                      
+                        <Image source={{uri: trendingDiscos[0].songs[0].albumCover}}
+                            style={styles.discoPageImage}
+                        />
+                        <Text style = {styles.discoTitle}>{route.params.currentDisco.name}</Text>
                         <TouchableOpacity
                             style={styles.queueButton}
                             onPress ={()=> navigation.push('Songs', route.params.currentDisco)}
                         >
                             <Text style = {styles.queueText}>Queue a Song</Text>
                         </TouchableOpacity>
-                        <Image source={{uri: trendingDiscos[0].songs[0].albumCover}}
-                            style={styles.discoPageImage}
-                        />
-                        <Text style = {styles.discoTitle}>{route.params.currentDisco.name}</Text>
                     </View>
                     <ScrollView style = {styles.songList}>
                         {
@@ -555,6 +560,7 @@ export const Details = ({route, navigation}) => {
                             })
                         }
                     </ScrollView>
+                 
                 </View>
                 
                 <View stlye = {styles.front}>
@@ -671,7 +677,7 @@ export const NewParty = ({route, navigation}) => {
                         style={styles.button2}
                         onPress ={()=> updateSongs({name:route.params.name, artist: route.params.artist, votes: route.params.votes})}
                     >
-                        <Text style = {styles.queueText}>Queue a Song</Text>
+                        <Text style = {styles.buttonText}>Queue a Song</Text>
                     </TouchableOpacity>
                     
                     <TouchableOpacity 
@@ -1094,18 +1100,18 @@ const styles = StyleSheet.create({
         width: 150,
         height: 150,
         alignSelf: "center",
-        marginTop:40,
-        marginBottom: 30,
+        marginTop:80,
+        marginBottom: 10,
 
     },
     discoTitle:{
 
         //fontFamily: 'sans-serif-medium',
         //alignSelf:"center",
-        fontSize: 40,
+        fontSize: 35,
         color: '#3ae0d5',
         marginTop: 10,
-        marginBottom: 30
+        marginBottom: 15
 
     },
     profileTitle:{
@@ -1148,20 +1154,20 @@ const styles = StyleSheet.create({
         flex: 1,
     }, 
     queueButton:{
-        marginTop:30,
+        marginTop:0,
         paddingTop:12,
         paddingBottom:12,
-        paddingLeft:40,
-        paddingRight: 40,
+        paddingLeft:30,
+        paddingRight: 30,
         alignItems: "center",
         backgroundColor:'#00a6ff',
         borderRadius:50,
-        width:250,
-        height:50,
+        width:170,
+        height:40,
     },
     queueText:{
-        fontSize:22,
-        fontWeight:"400",
+        fontSize:14,
+        fontWeight:"600",
     }, 
     searchItem:{
         flex: 1,  

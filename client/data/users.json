@@ -1,11 +1,16 @@
 [
     {
-        "name": "DJBeats_1",
+        "name": "DJ_User",
         "password": "password",
         "image":"https://organicthemes.com/demo/profile/files/2018/05/profile-pic.jpg"
     },
     {
         "name": "anthony",
+        "password": "password",
+        "image":"https://organicthemes.com/demo/profile/files/2018/05/profile-pic.jpg"
+    },
+    {
+        "name": "MannyLop",
         "password": "password",
         "image":"https://organicthemes.com/demo/profile/files/2018/05/profile-pic.jpg"
     },
