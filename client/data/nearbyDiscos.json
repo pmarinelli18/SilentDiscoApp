@@ -1,0 +1,194 @@
+[
+    {
+        "ID" : 0,
+        "name" : "HomeFest-19",
+        "dj": "Eric",
+        "songs": [
+            {
+                "name" : "Good Times Roll",
+                "artist" : "Griz",
+                "albumCover" : "https://auctions.royaltyexchange.com/thumbnail/0d0baefc72a22cb121e047194b9ea413",
+                "song" : "../assets/songs/goodtimesroll.mp3",
+                "votes" : 0
+            },
+            {
+                "name" : "Flava",
+                "artist" : "Griz",
+                "albumCover" : "https://media.pitchfork.com/photos/5a907a656cd8a464fb2815b4/1:1/w_600/40oz.%20to%20Freedom.jpg",
+                "song" : "../assets/songs/flava.mp3",
+                "votes" : 0
+            },
+            {
+                "name" : "I Don't Want To Wait",
+                "artist" : "Griz",
+                "albumCover" : "https://media.pitchfork.com/photos/5a907a656cd8a464fb2815b4/1:1/w_600/40oz.%20to%20Freedom.jpg",
+                "song": "../assets/songs/idontwanttowait.mp3",
+                "votes" : 0
+            },
+            {
+                "name" : "The Sound of Silence",
+                "artist" : "Griz",
+                "albumCover" : "https://media.pitchfork.com/photos/5a907a656cd8a464fb2815b4/1:1/w_600/40oz.%20to%20Freedom.jpg",
+                "song" : "../assets/songs/thesoundofsilence.mp3",
+                "votes" : 0
+            },
+            {
+                "name" : "Good Times Roll",
+                "artist" : "Griz",
+                "albumCover" : "https://media.pitchfork.com/photos/5a907a656cd8a464fb2815b4/1:1/w_600/40oz.%20to%20Freedom.jpg",
+                "song" : "../assets/songs/goodtimesroll.mp3",
+                "votes" : 0
+            }
+        ],
+        "users" : [
+            "Eric",
+            "Cory",
+            "Peyton",
+            "Anthony"
+        ]
+    },
+    {
+        "ID" : 1,
+        "name" : "Happy Vibin'",
+        "dj": "Eric",
+        "songs": [
+            {
+                "name" : "Flava",
+                "artist" : "Griz",
+                "albumCover" : "https://upload.wikimedia.org/wikipedia/en/5/5e/SteveAoki-Wonderland-Cover.jpg",
+                "song" : "../assets/songs/flava.mp3",
+                "votes" : 0
+            },
+            {
+                "name" : "Good Times Roll",
+                "artist" : "Griz",
+                "albumCover" : "https://media.pitchfork.com/photos/5a907a656cd8a464fb2815b4/1:1/w_600/40oz.%20to%20Freedom.jpg",
+                "song" : "../assets/songs/goodtimesroll.mp3",
+                "votes" : 0
+            },
+            {
+                "name" : "I Don't Want To Wait",
+                "artist" : "Griz",
+                "albumCover" : "https://media.pitchfork.com/photos/5a907a656cd8a464fb2815b4/1:1/w_600/40oz.%20to%20Freedom.jpg",
+                "song": "../assets/songs/idontwanttowait.mp3",
+                "votes" : 0
+            },
+            {
+                "name" : "The Sound of Silence",
+                "artist" : "Griz",
+                "albumCover" : "https://media.pitchfork.com/photos/5a907a656cd8a464fb2815b4/1:1/w_600/40oz.%20to%20Freedom.jpg",
+                "song" : "../assets/songs/thesoundofsilence.mp3",
+                "votes" : 0
+            },
+            {
+                "name" : "Good Times Roll",
+                "artist" : "Griz",
+                "albumCover" : "https://upload.wikimedia.org/wikipedia/en/a/ac/GRiZ-Good-Will-Prevail.png",
+                "song" : "../assets/songs/goodtimesroll.mp3",
+                "votes" : 0
+            }
+        ],
+        "users" : [
+            "Eric",
+            "Cory",
+            "Peyton",
+            "Anthony"
+        ]
+    },
+    {
+        "ID" : 2,
+        "name" : "Que the Sax",
+        "dj": "Eric",
+        "songs": [
+            {
+                "name" : "The Sound of Silence",
+                "artist" : "Griz",
+                "albumCover" : "https://media.pitchfork.com/photos/5a907a656cd8a464fb2815b4/1:1/w_600/40oz.%20to%20Freedom.jpg",
+                "song" : "../assets/songs/thesoundofsilence.mp3",
+                "votes" : 0
+            },
+            {
+                "name" : "Good Times Roll",
+                "artist" : "Griz",
+                "albumCover" : "https://media.pitchfork.com/photos/5a907a656cd8a464fb2815b4/1:1/w_600/40oz.%20to%20Freedom.jpg",
+                "song" : "../assets/songs/goodtimesroll.mp3",
+                "votes" : 0
+            },
+            {
+                "name" : "Flava",
+                "artist" : "Griz",
+                "albumCover" : "https://media.pitchfork.com/photos/5a907a656cd8a464fb2815b4/1:1/w_600/40oz.%20to%20Freedom.jpg",
+                "song" : "../assets/songs/flava.mp3",
+                "votes" : 0
+            },
+            {
+                "name" : "I Don't Want To Wait",
+                "artist" : "Griz",
+                "albumCover" : "https://upload.wikimedia.org/wikipedia/en/a/ac/GRiZ-Good-Will-Prevail.png",
+                "song": "../assets/songs/idontwanttowait.mp3",
+                "votes" : 0
+            },
+            {
+                "name" : "Good Times Roll",
+                "artist" : "Griz",
+                "albumCover" : "https://upload.wikimedia.org/wikipedia/en/a/ac/GRiZ-Good-Will-Prevail.png",
+                "song" : "../assets/songs/goodtimesroll.mp3",
+                "votes" : 0
+            }
+        ],
+        "users" : [
+            "Eric",
+            "Cory",
+            "Peyton",
+            "Anthony"
+        ]
+    },
+    {
+        "ID" : 3,
+        "name" : "Long RoadTrip~",
+        "dj": "Eric",
+        "songs": [
+            {
+                "name" : "I Don't Want To Wait",
+                "artist" : "Griz",
+                "albumCover" : "https://upload.wikimedia.org/wikipedia/en/thumb/6/6e/Paula_Cole_I_Don%27t_Want_to_Wait_US_CD_cover.jpg/220px-Paula_Cole_I_Don%27t_Want_to_Wait_US_CD_cover.jpg",
+                "song": "../assets/songs/idontwanttowait.mp3",
+                "votes" : 0
+            },
+            {
+                "name" : "Good Times Roll",
+                "artist" : "Griz",
+                "albumCover" : "https://upload.wikimedia.org/wikipedia/en/a/ac/GRiZ-Good-Will-Prevail.png",
+                "song" : "../assets/songs/goodtimesroll.mp3",
+                "votes" : 0
+            },
+            {
+                "name" : "Flava",
+                "artist" : "Griz",
+                "albumCover" : "https://upload.wikimedia.org/wikipedia/en/a/ac/GRiZ-Good-Will-Prevail.png",
+                "song" : "../assets/songs/flava.mp3",
+                "votes" : 0
+            },
+            {
+                "name" : "The Sound of Silence",
+                "artist" : "Griz",
+                "albumCover" : "https://upload.wikimedia.org/wikipedia/en/a/ac/GRiZ-Good-Will-Prevail.png",
+                "song" : "../assets/songs/thesoundofsilence.mp3",
+                "votes" : 0
+            },
+            {
+                "name" : "Good Times Roll",
+                "artist" : "Griz",
+                "albumCover" : "https://upload.wikimedia.org/wikipedia/en/a/ac/GRiZ-Good-Will-Prevail.png",
+                "song" : "../assets/songs/goodtimesroll.mp3",
+                "votes" : 0
+            }
+        ],
+        "users" : [
+            "Eric",
+            "Cory",
+            "Peyton",
+            "Anthony"
+        ]
+    }
+]

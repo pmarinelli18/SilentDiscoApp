@@ -6,6 +6,7 @@ import Constants from 'expo-constants';
 import { AuthContext } from './context';
 import users from './data/users.json';
 import trendingDiscos from './data/trendingDiscos.json';
+import nearbyDiscos from './data/nearbyDiscos.json';
 import songs from './data/songs.json';
 import { bold } from 'colorette';
 import { processFontFamily } from 'expo-font';
@@ -61,7 +62,7 @@ export const Home =({ navigation }) => {
     const AudioPlayer = (props) => (
         <View style = {{backgroundColor : "#161c1f", padding:8}}>
             <TouchableOpacity onPress ={()=> leaveParty(props.setInParty)}> 
-                <Text style = {{alignSelf : "center", fontWeight:"bold", color:"white"}}>L E A V E   P A R T Y</Text>
+                <Text style = {{alignSelf : "center", fontWeight:"bold", color:"white"}}>L E A V E   D I S C O</Text>
             </TouchableOpacity>
         </View>
     )
@@ -110,13 +111,13 @@ export const Home =({ navigation }) => {
                 <Text style = {styles.subHeader1}>Nearby Discos</Text>
                 <ScrollView horizontal = {true}>
                     {
-                        trendingDiscos.map((item, i)  => {
+                        nearbyDiscos.map((item, i)  => {
                             return(
                                 <TouchableOpacity
                                     onPress ={()=> goToDisco(navigation, i)}
                                     key={i}
                                 >
-                                    <Image source={{uri: trendingDiscos[i].songs[0].albumCover}}
+                                    <Image source={{uri: nearbyDiscos[i].songs[0].albumCover}}
                                         style={styles.discoImage}
                                     />
                                 </TouchableOpacity>

@@ -124,7 +124,7 @@ return {
               }
             />
             <Tabs.Screen 
-              name = "NewParty" 
+              name = "New Disco" 
               component = {NewPartyStackScreen}
               options={{
                 
