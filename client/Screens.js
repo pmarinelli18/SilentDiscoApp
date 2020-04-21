@@ -758,7 +758,7 @@ export const LoginInfo = () =>{
             placeholderTextColor = "#555"
             //onChangeText = {}
             />
-            <TextInput style ={styles.loginInput}
+            <TextInput secureTextEntry={true} style ={styles.loginInput}
             placeholder = "password"
             placeholderTextColor = "#555"
             //onChangeText = {}
