@@ -214,9 +214,9 @@ return(
                                
                                 <View style = {styles.searchItem} key={i}>
                                     <View style = {styles.songText}>
-                                        <Text style = {styles.searchSongName}>{item.name}</Text>
+                                        <Text style = {styles.searchSongName2}>{item.name}</Text>
                                        
-                                        <Text style = {styles.searchSongName}>{item.songs.artist}</Text>
+                                        <Text style = {styles.searchSongName2}>{item.songs.artist}</Text>
                                     </View>
                                     <Image style={styles.searchAlbumCover}source={{uri: item.albumCover}}/>
                                     
@@ -745,6 +745,7 @@ export const LoginInfo = () =>{
             
     
             <View style={styles.getStartedContainer}>
+            <Text style = {styles.welcome}>S T A R T  Y O U R  D I S C O</Text>
             <TextInput style ={styles.loginInput}
             
             placeholder = "username"
@@ -757,7 +758,7 @@ export const LoginInfo = () =>{
             //onChangeText = {}
             />
             <TouchableOpacity
-                style={styles.button}
+                style={styles.button2}
                 onPress ={() => signIn()}
             >
             <Text style = {styles.buttonText}>L O G I N</Text>
@@ -910,8 +911,8 @@ const styles = StyleSheet.create({
     },
     loginInput:{
         
-        height: 40,
-        width: 150,
+        height: 45,
+        width: 228,
         color: '#fff',
         borderColor: '#00a6ff',
         marginTop: 20,
@@ -935,6 +936,16 @@ const styles = StyleSheet.create({
         // fontFamily: 'normal',
         fontWeight: '100',
         marginBottom: 50
+    },
+
+    welcome:{
+        color: '#ffffff',
+        fontSize: 20,
+        // fontFamily: 'normal',
+        fontWeight: '100',
+        marginTop: -10,
+        marginBottom: 80
+       
     },
     welcomeContainer: {
         alignItems: 'center',
@@ -1185,6 +1196,13 @@ const styles = StyleSheet.create({
     searchSongName:{
         marginTop: 10,
         marginBottom:5,
+        flex:1,
+        color: '#FFFFFF',
+        fontSize: 15,
+    },
+    searchSongName2:{
+        marginTop: 10,
+        marginBottom:0,
         flex:1,
         color: '#FFFFFF',
         fontSize: 15,
