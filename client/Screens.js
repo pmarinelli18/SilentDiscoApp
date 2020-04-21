@@ -173,6 +173,10 @@ export const Profile =(navigation) => {
                 return(require('./assets/Eric.png'))
             case 'anthony':
                 return(require('./assets/anthony.jpg'))
+            case 'DJ_User':
+                return(require('./assets/Julia.png'))
+            case 'MannyLop':
+                return(require('./assets/Manny.png'))
             default:
                 return(require('./assets/SilentDiscoNew-01.png'))
         }
@@ -250,6 +254,10 @@ export const FriendProfile =({route, navigation}) => {
                 return(require('./assets/Eric.png'))
             case 'anthony':
                 return(require('./assets/anthony.jpg'))
+            case 'DJ_User':
+                return(require('./assets/Julia.png'))
+            case 'MannyLop':
+                return(require('./assets/Manny.png'))
             default:
                 return(require('./assets/SilentDiscoNew-01.png'))
         }
@@ -295,9 +303,9 @@ return(
                                
                                 <View style = {styles.searchItem} key={i}>
                                     <View style = {styles.songText}>
-                                        <Text style = {styles.searchSongName}>{item.name}</Text>
+                                        <Text style = {styles.searchSongName2}>{item.name}</Text>
                                        
-                                        <Text style = {styles.searchSongName}>{item.songs.artist}</Text>
+                                        <Text style = {styles.searchSongName2}>{item.songs.artist}</Text>
                                     </View>
                                     <Image style={styles.searchAlbumCover}source={{uri: item.albumCover}}/>
                                     
